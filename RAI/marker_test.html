@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>도로 돌발 정보 지도</title>
+    <script
+        src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=vqCR8cMhVh5aSpuDuOxJj5W4OQ46SWvU5rHuRI7H"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+
+        #info {
+            width: 100%;
+            height: 500px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <p id="result"></p>
+
+    <script>
+        var map = new Tmapv2.Map("map", {    //맵 생성
+            center: new Tmapv2.LatLng(37.566481622437934, 126.98502302169841),
+            width: "100%",
+            height: "500px",
+            zoom: 10,
+        });
+
+        var markers = [];
+
+        // cors 에러 오류 때문에 url 앞에 https://cors-anywhere.herokuapp.com/ 추가
+        fetch('https://cors-anywhere.herokuapp.com/http://www.utic.go.kr:8080/guide/imsOpenData.do?key=lZrvhlh9xs710jGVRIgOQIkE5N1baQuJ0AqXatykEoFQ9A2o5mdrVL0QLwrTBJ')
+            .then(response => response.text())
+            .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+            .then(data => {
+                var records = data.querySelectorAll('record');
+                records.forEach(record => {
+                    var lat = parseFloat(record.querySelector('locationDataY').textContent);          //위도
+                    var lng = parseFloat(record.querySelector('locationDataX').textContent);          //경도
+                    var incidentTitle = record.querySelector('incidentTitle').textContent;            //돌발정보
+
+                    var marker = new Tmapv2.Marker({                //마커생성
+                        position: new Tmapv2.LatLng(lat, lng),
+                        map: map
+                    });
+
+
+                    marker.addListener("click", function (evt) {       //마커에 클릭 리스너이벤트 달아줌
+                        
+                        document.getElementById("result").innerHTML = incidentTitle;     //지도아래 result 태그에 돌발정보 표시
+
+                    });
+
+                    markers.push(marker);   //마커리스트 추가
+
+                });
+            });
+
+    </script>
+</body>
+
+</html>
