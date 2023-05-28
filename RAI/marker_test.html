@@ -24,7 +24,7 @@
     <p id="result"></p>
 
     <script>
-        var map = new Tmapv2.Map("map", {
+        var map = new Tmapv2.Map("map", {    //맵 생성
             center: new Tmapv2.LatLng(37.566481622437934, 126.98502302169841),
             width: "100%",
             height: "500px",
@@ -32,8 +32,6 @@
         });
 
         var markers = [];
-        var infoWindows = [];
-        var currentInfoWindow = null;
 
         // cors 에러 오류 때문에 url 앞에 https://cors-anywhere.herokuapp.com/ 추가
         fetch('https://cors-anywhere.herokuapp.com/http://www.utic.go.kr:8080/guide/imsOpenData.do?key=lZrvhlh9xs710jGVRIgOQIkE5N1baQuJ0AqXatykEoFQ9A2o5mdrVL0QLwrTBJ')
@@ -58,8 +56,8 @@
 
                     });
 
-                    markers.push(marker);
-                    infoWindows.push(infoWindow);
+                    markers.push(marker);   //마커리스트 추가
+
                 });
             });
 
