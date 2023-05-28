@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>도로 돌발 정보 지도</title>
+    <script
+        src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=vqCR8cMhVh5aSpuDuOxJj5W4OQ46SWvU5rHuRI7H"></script>
+        <!--부트스트랩 사용-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        #map {
+            width: 100%;
+            height: 100vh;         /*뷰포트 높이 100%*/
+        }
+
+        #info {
+            width: 100%;
+            height: 500px;
+            overflow: auto;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <p id="result"></p>
+
+    <script>
+
+        // 맵생성
+        var map = new Tmapv2.Map("map", {
+            center: new Tmapv2.LatLng(35.133238684709, 129.10144001966),         //부경대 위도경도
+            width: "100%",
+            height: "100vh",
+            zoom: 10,
+        });
+
+        var markers = [];
+        var infoWindows = [];
+        var currentInfoWindow = null;
+
+        // cors 에러 오류 때문에 url 앞에 https://cors-anywhere.herokuapp.com/ 추가
+        fetch('https://cors-anywhere.herokuapp.com/http://www.utic.go.kr:8080/guide/imsOpenData.do?key=lZrvhlh9xs710jGVRIgOQIkE5N1baQuJ0AqXatykEoFQ9A2o5mdrVL0QLwrTBJ')
+            .then(response => response.text())
+            .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+            .then(data => {
+                var records = data.querySelectorAll('record');
+                records.forEach(record => {
+                    var lat = parseFloat(record.querySelector('locationDataY').textContent);          //위도
+                    var lng = parseFloat(record.querySelector('locationDataX').textContent);          //경도
+                    var incidentTitle = record.querySelector('incidentTitle').textContent;            //돌발정보
+
+                    var marker = new Tmapv2.Marker({                //마커생성
+                        position: new Tmapv2.LatLng(lat, lng),
+                        map: map
+                    });
+
+                       
+                    var infoWindow = new Tmapv2.InfoWindow({
+                        position: new Tmapv2.LatLng(lat, lng),
+                        content: '<div class="alert alert-light alert-dismissible fade show" role="alert"><div style="width:150px">'+incidentTitle+'</div><button type="button" class="btn-close" onclick="closeWindow()"></button></div>',
+                        //content: '<button onclick="closeWindow()">X</button>' + incidentTitle,      //마커클릭시 나타날 내용, 닫기버튼 달아줌
+                        border :'0px solid #FF0000', //Popup의 테두리 border 설정
+			            type: 2, //Popup의 type 설정, Tmapv2.InfoWindowOptions.TYPE_FLAT = 2
+			            map: map, //Popup이 표시될 맵 객체
+                        visible: false
+                    });
+
+                    marker.addListener("click", function (evt) {    //마커에 클릭 리스너이벤트 달아줌
+                        if (currentInfoWindow) {
+                            currentInfoWindow.setVisible(false);         //현재 열려있는 info가 있다면 닫아준다
+                        }
+                        infoWindow.setMap(map);
+                        infoWindow.setVisible(true);          //누른 마커의 info를 연다(visible)
+                        currentInfoWindow = infoWindow;       //현재 누른 마커의 info를 현재 열려있는 info로 바꾼다
+                        //document.getElementById("result").innerHTML = incidentTitle;
+                    });
+
+                    markers.push(marker);    //마커리스트 추가
+                    infoWindows.push(infoWindow);    //인포리스트 추가
+                });
+            });
+
+            function closeWindow() {
+            if (currentInfoWindow) {          //현재 열려있는 info가 있다면
+                currentInfoWindow.setVisible(false);      //닫아준다
+                currentInfoWindow = null;
+            }
+        }
+
+
+    </script>
+    <!--부트스트랩-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+
+</html>
