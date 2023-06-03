@@ -1,112 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>안전할지도 - 도로 침수/결빙 위험및 돌발정보 안내지도</title>
-    
-    <!--Tmap api 사용-->
-    <script
-        src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=vqCR8cMhVh5aSpuDuOxJj5W4OQ46SWvU5rHuRI7H"></script>
-
-    <!--부트스트랩 사용-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-        
-    <style>
-        #map {
-            width: 100%;
-            height: 95vh;
-            /*뷰포트 높이 95%*/
-        }
-
-        /* 웹폰트 사용 */
-        @font-face {
-            font-family: 'MapoPeacefull';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoPeacefullA.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        .navbar {
-            font-family: 'MapoPeacefull';
-        }
-
-        #title_safe {
-            color: #70C7E6;
-        }
-
-        #title_maybe {
-            color: #BAE4B6;
-        }
-
-        #title_map {
-            color: #F1DA7B;
-        }
-
-        .RAI_btn {
-            position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
-            bottom: 10px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .RAI_btn {
-            position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
-            bottom: 10px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .road_btn {
-            position: absolute;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
-            top: 60px;
-            left: 5px;
-
-        }
-
-    </style>
-</head>
-
-<body>
-
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="." style="padding-left: 13px;">
-            <img src="safe_map_icon_white.png" width="30" height="30" class="d-inline-block align-top" alt=""
-                loading="lazy">
-            <span id="title_safe">안전</span><span id="title_maybe">할</span><span id="title_map">지도</span>
-        </a>
-    </nav>
-
-    
-    <div id="map"></div>
-
-    <div class="RAI_btn">
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 98%;"> <!-- 버튼크기 가로 98% -->
-        현재 통제정보가 <span id="rai_cnt"></span>건 있습니다.       <!--정보 건수는 데이터 불러올때 동적으로 삽입-->
-    </button>
-    </div>
-
-
-    <!-- 모달 태그 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">         <!-- 스크롤 가능하도록 modal-dialog-scrollable -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">통제 정보</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="incidentList">
-                    <!-- 통제 정보를 이 곳에 표시 -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
 
         /*
         현재 위치의 위도 경도값을 얻어와서 지도의 center로 설정할 예정
@@ -144,6 +35,8 @@
                 });
             } catch (error) {
                 console.error(error);
+                // 위치 정보를 얻을 수 없을 때 #map 영역에 에러 메시지 표시
+                //document.getElementById('map').innerHTML = `<p style="text-align: center; padding-top: 30px;">${error} 위치 정보를 얻을 수 없습니다. </p>`;
 
                 // 위치 정보를 얻을 수 없을 때 부경대를 센터로 지정
                 map = new Tmapv2.Map("map", {
@@ -161,38 +54,45 @@
         var markers = [];
         var infoWindows = [];
         var currentInfoWindow = null;
+        var listItems = [];
 
         // cors 에러 오류 때문에 url 앞에 https://cors-anywhere.herokuapp.com/ 추가
+        // https://cors-anywhere.herokuapp.com/corsdemo 에서 request temporary access to the demo server
+        
         fetch('https://cors-anywhere.herokuapp.com/http://www.utic.go.kr:8080/guide/imsOpenData.do?key=lZrvhlh9xs710jGVRIgOQIkE5N1baQuJ0AqXatykEoFQ9A2o5mdrVL0QLwrTBJ')
             .then(response => response.text())
             .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
             .then(data => {
                 var records = data.querySelectorAll('record');
 
-                var record_count = records.length;
+                var record_count = records.length;       //레코드 개수(현재 정보 건수)가져오기
                 var span = document.getElementById('rai_cnt');
                 span.innerHTML = record_count;            //현재 돌발정보건수를 동적으로 삽입
 
                 records.forEach(record => {
                     var lat = parseFloat(record.querySelector('locationDataY').textContent);          //위도
                     var lng = parseFloat(record.querySelector('locationDataX').textContent);          //경도
-                    var incidentTitle = record.querySelector('incidentTitle').textContent;            //돌발정보
+                    var incidentTitle = record.querySelector('incidentTitle').textContent;            //돌발정보(상세)
+                    var roadName = record.querySelector('roadName').textContent;            //도로이름
+                    var endDate = record.querySelector('endDate').textContent;            //종료시각
 
                     var marker = new Tmapv2.Marker({                //마커생성
                         position: new Tmapv2.LatLng(lat, lng),
-                        map: map,
-                        icon:"marker_icon_small.png"
+                        map: map
+                        
                     });
 
 
                     var infoWindow = new Tmapv2.InfoWindow({
-                        position: new Tmapv2.LatLng(lat, lng),
-                        content: '<div class="alert alert-light alert-dismissible fade show" role="alert"><div style="width:150px">' + incidentTitle + '</div><button type="button" class="btn-close" onclick="closeWindow()"></button></div>',
-                        //content: '<button onclick="closeWindow()">X</button>' + incidentTitle,      //마커클릭시 나타날 내용, 닫기버튼 달아줌
-                        border: '0px solid #FF0000', //Popup의 테두리 border 설정
+                        position: new Tmapv2.LatLng(lat, lng), 
+                        content: '<span class="badge text-bg-light" style="font-size:10pt;"><div style="padding: 3px; width:max-content">'+roadName+ ' <button type="button" class="btn-close" onclick="closeWindow()" style="font-size:8pt"></button></div></span>',
+                        background: false,
+                        border : '10px solid transparent', /*완전히 투명하게*/
                         type: 2, //Popup의 type 설정, Tmapv2.InfoWindowOptions.TYPE_FLAT = 2
                         map: map, //Popup이 표시될 맵 객체
-                        visible: false
+                        visible: false,
+                        align: 18, // Tmapv2.InfoWindowOptions.ALIGN_CENTERBOTTOM = 18
+                        offset: new Tmapv2.Point(0, 40)
                     });
 
                     marker.addListener("click", function (evt) {    //마커에 클릭 리스너이벤트 달아줌
@@ -220,10 +120,32 @@
                     infoWindows.push(infoWindow);    //인포리스트 추가
 
                     //* 모달에 담길 아이템 생성 *//
-                    var listItem = document.createElement('li');
-                    listItem.textContent = incidentTitle;
+                    var listItem = document.createElement('div');
+
+                    /*
+                        <div>
+                            <p>을지로 입구역</p>
+                            <span style="font-size: small;">오늘 여섯시까지</span><br>
+                            <span style="font-size: small;">상세 내용</span>
+                            <hr>
+                        </div>
+
+                    */
+                    endDate = endDate.substring(6); // '2023년 ' 부분을 제거하여 남은 부분을 가져옴
+                    listItem.innerHTML = '<p>'+roadName+'</p><span style="font-size: small;">'+endDate+'까지,</span><br><span style="font-size: small;">'+incidentTitle+'</span><hr>'
+                    
+                    listItems.push(listItem); //listItems에 담아두기
                     incidentList.appendChild(listItem);        //모달에 추가
+
                 });
+
+                //클러스터링
+                // markerCluster = new Tmapv2.extension.MarkerCluster({
+                //     markers: markers,
+                //     map: map
+                // });
+
+                
             });
 
         // infowindow를 닫는 함수. info닫기버튼의 onclick이벤트로 사용
@@ -234,12 +156,66 @@
             }
         }
 
+        // 모든 마커를 표시해제 하는 함수
+        function removeMarkers() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            // markerCluster.destroy();	//클러스터 삭제
+        }
 
-    </script>
-    <!--부트스트랩-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-</body>
 
-</html>
+        var markers2 = [];
+
+        // 일부 영역의 마커들만 표시하도록
+        function testMarkers(x1, y1, x2, y2) {              //x경도 y위도인 두지점
+
+            markers2 = [];
+            removeMarkers();  //맵에서 모든 마커를 지움
+            incidentList.innerHTML = '';  //비우기
+            var count = 0;
+
+            if(x1 > x2){      //x2가 x1값보다 크도록 swap
+                var tmp;
+                tmp=x1;
+                x1=x2;
+                x2=tmp;
+            }
+
+            if(y1 > y2){      //y2가 y1값보다 크도록 swap
+                var tmp;
+                tmp=y1;
+                y1=y2;
+                y2=tmp;
+            }
+
+            console.log(x1,y1,x2,y2);
+
+            for (var i = 0; i < markers.length; i++) {
+                // markers의 각 마커마다 lat lng값을 가져온다
+                var position = markers[i].getPosition();
+                var lat = position.lat();
+                var lng = position.lng();
+
+                if(i==1){
+                    console.log(lat,lng);
+                }
+
+                if ( (x1<lng) && (lng<x2) && (y1<lat) && (lat<y2) ) {      //해당 마커가 범위안에 있다면
+                    markers[i].setMap(map);        //마커를 맵에 표시
+                    // new Tmapv2.Marker({                //마커생성
+                    //     position: new Tmapv2.LatLng(lat, lng),
+                    //     map: map,
+                    // });
+                    incidentList.appendChild(listItems[i]);        //모달에 추가
+                    count += 1; //건수 카운트
+                }
+            }
+
+            var span = document.getElementById('rai_cnt');
+            span.innerHTML = count;            //현재 돌발정보건수를 동적으로 삽입
+
+        
+
+
+        }        
