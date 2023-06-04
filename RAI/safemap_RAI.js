@@ -570,8 +570,3 @@ function showPaths2(x1, y1, x2, y2){
     testMarkers(x1, y1, x2, y2);
     showPaths(x1, y1, x2, y2);
 }
-
-function showPaths3(x1, y1, x2, y2){
-    testMarkers(0, 0, 0, 0);
-    testMarkers(x1, y1, x2, y2);
-}
