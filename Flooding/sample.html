@@ -89,20 +89,13 @@
 
 
         const floodingUrl = 'http://apis.data.go.kr/6260000/BusanWaterImrsnInfoService/getWaterImrsnInfo?serviceKey=zLzLsz6TwuV3XckkNxeibskoB4TQWO%2B4E0Ob3QC4SLnFpBdhF%2BhH9BEm0%2FdPZPrCYKbtcj12ixLGeX24tWYSig%3D%3D&pageNo=1&numOfRows=10&resultType=json';
-        
+
         fetch(floodingUrl)
-        .then((res) => res.json())
-        .then((resJson) => {
-            const flood = resJson.item;
-
-            console.log(flood);
-
-            // var lat = flood[0]["la_crd"];
-
-            // console.log(lat);
-
-
-        });
+            .then((res) => res.json())
+            .then((resJson) => {
+                const flood = resJson.getWaterImrsnInfo.body.items.item;
+                console.log(flood);
+            });
 
 
     </script>

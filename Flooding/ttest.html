@@ -12,8 +12,7 @@
         fetch(floodingUrl)
             .then((res) => res.json())
             .then((resJson) => {
-                const flood = resJson.items.item;
-
+                const flood = resJson.getWaterImrsnInfo.body.items.item;
                 console.log(flood);
             });
     </script>
