@@ -28,7 +28,7 @@ async function drawMap() {
 function showPolygon(name, status) {
     // console.log(name); // 잘 받아오는지 테스트
     if (!poly) {
-        if (name == '감천동' && status == 50) {
+        if (name == '감천동' && status >= 50) {
             poly = new Tmapv2.Polygon({	
                 paths: [new Tmapv2.LatLng(35.086200, 129.004464),
                     new Tmapv2.LatLng(35.088096, 129.005709),
@@ -39,7 +39,7 @@ function showPolygon(name, status) {
                 map: map	// 지도 객체
             });
         }
-        if (name == '용호동' && status == 50) {
+        if (name == '용호동' && status >= 50) {
             poly = new Tmapv2.Polygon({	
                 paths: [new Tmapv2.LatLng(35.086200, 129.004464),
                     new Tmapv2.LatLng(35.088096, 129.005709),
@@ -50,7 +50,7 @@ function showPolygon(name, status) {
                 map: map	// 지도 객체
             });
         }
-        if (name == '대연동' && status == 50) {
+        if (name == '대연동' && status >= 50) {
             poly = new Tmapv2.Polygon({	
                 paths: [new Tmapv2.LatLng(35.131328, 129.105250),
                     new Tmapv2.LatLng(35.132513, 129.100615),
