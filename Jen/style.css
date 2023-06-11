@@ -1,0 +1,230 @@
+#map {
+    width: 100%;
+    height: 95vh;
+    /*뷰포트 높이 95%*/
+}
+
+/* 웹폰트 사용 */
+@font-face {
+    font-family: 'NIXGONM-Vb';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} 
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 안전할지도 타이틀 --------------------------------------- */
+#title_safe {
+    color: #333333;
+    font-family: 'Cute Font', cursive;
+    font-weight: bold;
+    font-size: 32px;
+    letter-spacing: 1px;
+    margin-right: 1px;
+}
+
+#title_map {
+    color: #333333;
+    font-family: 'Cute Font';
+    font-weight: bold;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+
+
+/* 헤더 ----------------------------------------------*/
+.header {
+    height: 56px;
+    background-color:#ffffff !important;
+  }
+
+.header .container{
+    margin: 0px;
+    padding: 4px;
+    position: fixed;
+}
+/* 네비게이션 ----------------------------------------------*/
+.navbar{
+    height: 56px;
+    padding: 12p, 16px;
+
+}
+/* 장소검색 버튼 ------------------------------------------------*/
+.RAI_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    bottom: 1.0em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.RAI_btn button {
+    border-radius: 10px; /*둥글게*/
+}
+
+
+/* 장소검색 버튼 ------------------------------------------------*/
+.findPlace_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    left: 0.938em;
+}
+
+.findPlace_btn .flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.findPlace_btn button {
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; 버튼색상 */
+  }
+
+.findPlace_btn button p{
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+}
+
+  .findPlace_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+  }
+
+
+/* 길찾기 버튼 --------------------------------------------*/
+  .findRoute_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    left: 101px;
+}
+
+.findRoute_btn .flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.findRoute_btn button {
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
+  }
+
+.findRoute_btn button p{
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+    /* transform: skew(-0.1deg); /*글자 깨짐이 발생할 때 사용*/
+}
+
+  .findRoute_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+}
+
+/* 결빙버튼 --------------------------------------------------*/
+.frost_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    left: 200px;
+}
+
+.frost_btn .flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.frost_btn button {
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
+  }
+
+.changeColor_btn {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.frost_btn button p{
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+    /* transform: skew(-0.1deg); /*글자 깨짐이 발생할 때 사용*/
+}
+
+  .frost_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+}
+
+/* 침수버튼 ---------------------------------------------*/
+.flooding_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    left: 286px;
+}
+
+.flooding_btn .flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.flooding_btn button {
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
+  }
+
+.flooding_btn button p{
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+    /* transform: skew(-0.1deg); /*글자 깨짐이 발생할 때 사용*/
+}
+
+  .flooding_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+}
+
+/* 하단 통제정보 버튼 ---------------------------------------------*/
+.RAI_btn button {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 12px;
+}
+.RAI_btn .flex-container{
+    align-items: center;
+    font-size: 18px;
+    font-weight: 400;
+}
+.RAI_btn #rai_cnt {
+    font-weight: 700;
+    color: #333333;
+}
+.RAI_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+}
+
+
+.search_box {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  
+  #searchInput {
+    width: 200px;
+    padding: 5px;
+    margin-right: 5px;
+  }
+  
+  #searchBtn {
+    padding: 5px 10px;
+  }
