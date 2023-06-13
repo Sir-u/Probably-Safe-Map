@@ -24,6 +24,7 @@
     <div id="map"></div>
     <button id="showRectangleButton">사각형 표시</button>
     <script src="marker.js"></script>
+    <script src="test/test.js"></script>
     <script>
         function getUserLocation() {
             return new Promise((resolve, reject) => {
@@ -42,6 +43,7 @@
         var poly;
 
 
+        test();
         drawMap();
         const floodingUrl = 'http://apis.data.go.kr/6260000/BusanWaterImrsnInfoService/getWaterImrsnInfo?serviceKey=zLzLsz6TwuV3XckkNxeibskoB4TQWO%2B4E0Ob3QC4SLnFpBdhF%2BhH9BEm0%2FdPZPrCYKbtcj12ixLGeX24tWYSig%3D%3D&pageNo=1&numOfRows=10&resultType=json';
 
@@ -50,7 +52,6 @@
             .then((resJson) => {
                 const flood = resJson.getWaterImrsnInfo.body.items.item;
                 console.log(flood);
-
 
                 for (var i = 0; i < flood.length; i++) {
                     var name = flood[i]['siteName'];

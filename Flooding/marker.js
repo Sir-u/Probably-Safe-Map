@@ -26,7 +26,7 @@ async function drawMap() {
 //TODO:
 //FIXME:
 function showPolygon(name, status) {
-    // console.log(name); // 잘 받아오는지 테스트
+    //console.log(name); // 잘 받아오는지 테스트
     if (!poly) {
         if (name == '감천동' && status >= 50) {
             poly = new Tmapv2.Polygon({	
