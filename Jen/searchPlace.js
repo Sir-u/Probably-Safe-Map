@@ -1,3 +1,32 @@
+function removeSearchSection_POINT() {
+    // 검색 토글버튼 올라와있을때
+    $('#searchSection_POINT').hide();
+    $('#result_div').hide();
+}
+
+function showSearchSection_POINT() {
+    // 검색 토글버튼 눌러져있을때 --> 그냥 show하면 됨.
+    $('#searchSection_POINT').show(); 
+    $('#result_div').show();
+}
+
+function toggleFindPoint() {
+    var button = document.querySelector('#findPlaceBtn');
+    var isPressed = button.getAttribute('aria-pressed') === 'false';
+
+    if (isPressed) {
+        removeSearchSection_POINT(); //검색버튼 눌렀을 때 검색창 없애기
+    } else {
+        showSearchSection_POINT(); //검색버튼 눌렀을 때 검색창 띄우기
+    }
+}
+
+
+
+
+
+
+
 var map, marker;
 var markerArr = [];
 
@@ -76,7 +105,7 @@ function searchPOI(searchKeyword, isStart){
 				//결과 리스트 클릭할 수 있게 만들기--------------------
 				// 클릭 이벤트 핸들러를 추가할 <li> 요소 선택
 				var listItem = $("#searchResult li");
-
+				
 				// <li> 요소에 클릭 이벤트 리스너 등록
 				listItem.on("click", function() {
 				  //클릭한 것의 data를 가져옴
@@ -85,7 +114,7 @@ function searchPOI(searchKeyword, isStart){
 				var name = $(this).data("name");
 			
 				// 예시로 경고창에 장소 정보 출력 (연습용)
-				// alert("선택한 장소: " + name + "\n위도: " + lat + "\n경도: " + lon);
+				alert("선택한 장소: " + name + "\n위도: " + lat + "\n경도: " + lon);
 			
 				 // 클릭한 위치를 지도의 중심으로 설정
                 map.setCenter(new Tmapv2.LatLng(lat, lon));

@@ -111,10 +111,3 @@ document.addEventListener("DOMContentLoaded", function() { //domcontentloaded안
   // 체크박스의 상태 변경 이벤트 리스너를 추가합니다.
   frozenMapCheckbox.addEventListener('click', toggleMarkers);
 });
-
-
-
-
-function redirectToSearchPlace() {
-  window.location.href = "search_place.html";
-}

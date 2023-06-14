@@ -18,6 +18,14 @@
     <!-- <script src="safemap_RAI.js"></script> -->
     <script src="frAccident.js"></script>
 	  <!-- <script src="frRoute.js"></script> -->
+    <script src="searchPlace.js"></script>
+
+    <script>
+      $(document).ready(function() {
+          click_listeners();
+      });
+
+  </script>
     <!-- css연결 -->
     <link rel="stylesheet" href="style.css">
 
@@ -41,19 +49,59 @@
       <div id="sentence"></div> -->
 </head>
 
-<body>
-   <!-- 헤더 -->
-    <header class="header">
-      <div class="container">
-              <div class="navbar-brand" href="" style="padding-left: 0.938em;"> 
-                <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/safe_map_icon_colored.png?raw=true" width="37" height="37" class="d-inline-block align-middle" alt="" loading="lazy">
-                <span id="title_safe" class="d-inline-block align-middle">안전할</span><span id="title_map" class="d-inline-block align-middle">지도</span>
-               </div>
-              </div>
-    </header>
+<!-- 헤더 -->
+<nav class="navbar navbar-expand" style="position: relative; z-index: 2;">
+  <div class="container-fluid">
+          <div class="navbar-brand" href="" style="padding-left: 0.938em;"> 
+            <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/safe_map_icon_colored.png?raw=true" width="37" height="37" class="d-inline-block align-middle" alt="" loading="lazy">
+            <span id="title_safe" class="d-inline-block align-middle">안전할</span><span id="title_map" class="d-inline-block align-middle">지도</span>
+           </div>
+           <div class="navbar-collapse" id="navbarNavDarkDropdown"> <!-- collapse 클래스 제거 -->
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  더보기
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="https://weather.naver.com/">네이버 날씨</a></li>
+                  <li><a class="dropdown-item" href="http://www.cartvnews.com/">교통 뉴스</a></li>
+                  <li><a class="dropdown-item" href="#">사용법 안내</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+  </div>
+</nav>
+
+    <div id="searchSection_POINT" style="display: none;">
+    <!-- 검색버튼 -->
+    <div class="input-group mb-3"  style="width: 40%;" id="point_search">
+      <input type="text" class="form-control" placeholder="장소 검색"  id="searchKeyword">
+      <button type="button" class="btn btn-primary" style="width: 100px;" id="btn_select_place">검색</button>
+  </div>
+
+  <!-- 주변 돌발정보 표시 타이틀 -->
+  <!-- <div class="input-group mb-3"  style="width: 400px;" id="btn_showPointRAI_div">
+      <button type="button" class="btn btn-primary" id="btn_showPointRAI">주변 돌발정보 표시</button>
+  </div> -->
+</div>
+
+  <!-- 검색결과  -->
+
+  <div id="result_div" style="width: 30%; float:right; display: none;">
+      <div class="title" style="font-size: 20px;"><strong>Search</strong> Results</div>
+      <div class="rst_wrap">
+          <ul id="searchResult" name="searchResult" style="list-style-type:none;" class="list-group">  <!-- li 아이템의 검은점 아이콘 삭제 -->
+              <li class="list-group-item">검색 결과</li>
+          </ul>
+      </div>
+  </div>
+
+
+
 
  <!-- 네비게이션 -->
-<nav class="navbar">
+<div class="btns">
     <!-- 결빙레이어버튼 -->
   <div class="frost_btn">
   <button type="button" class="btn btn-light shadow-sm" id="frostBtn" onclick="toggleButtonColor()">
@@ -76,7 +124,7 @@
 
   <!-- 검색버튼 -->
   <div class="findPlace_btn">
-    <button type="button" class="btn btn-light shadow-sm" onclick="redirectToSearchPlace()" id="findPlaceBtn">
+    <button type="button" class="btn btn-light shadow-sm" id="findPlaceBtn" data-bs-toggle="button" aria-pressed="false" autocomplete="off" onclick="toggleFindPoint()">
       <div class="flex-container">
         <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/>
         <p class="text">검색</p>
@@ -95,10 +143,9 @@
   </div>
 </div>
 
-</nav>
 
  <!-- 지도 그리기 -->
-    <div id="map">
+    <div id="map" style="position: relative; z-index: 1">
         <script>
             function getUserLocation() {
                 return new Promise((resolve, reject) => {

@@ -42,23 +42,20 @@
 }
 
 
-/* 헤더 ----------------------------------------------*/
-.header {
+/* 헤더 ----------------------------------------------*/        
+.navbar {
     height: 56px;
     background-color:#ffffff !important;
   }
 
-.header .container{
+.navbar .container-fluid{
     margin: 0px;
     padding: 4px;
     position: fixed;
 }
-/* 네비게이션 ----------------------------------------------*/
-.navbar{
-    height: 56px;
-    padding: 12p, 16px;
 
-}
+
+
 /* 장소검색 버튼 ------------------------------------------------*/
 .RAI_btn {
     position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
@@ -228,3 +225,10 @@
   #searchBtn {
     padding: 5px 10px;
   }
+
+
+.btns{
+    position: fixed;
+    z-index: 1000;
+    top:68px;
+}
