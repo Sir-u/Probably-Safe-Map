@@ -1,16 +1,16 @@
-function formatDate() {
-   var today = new Date();
-   var year = today.getFullYear();
-   var month = today.getMonth() + 1;
-   var day = today.getDate();
+var a = [];
+a[1] = ["test1", 30, 44];
+a[2] = ["test2", 60, 77];
+a[3] = ["test3", 40, 42];
+a[4] = ["test4", 70, 25];
+a[5] = ["test5", 50, 24];
 
-   // 월과 일이 한 자리 수인 경우 앞에 0을 추가하여 두 자리로 만듭니다.
-   month = month < 10 ? '0' + month : month;
-   day = day < 10 ? '0' + day : day;
+var extractedElements = [];
 
-   var formattedDate = year + month + day;
-   return formattedDate;
+for (var i = 1; i < a.length; i++) {
+   if (a[i][1] > 50) {
+      extractedElements.push(a[i][0]);
+   }
 }
 
-var formattedToday = formatDate();
-console.log(formattedToday);
+console.log(extractedElements);

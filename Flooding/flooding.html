@@ -23,28 +23,11 @@
    <h1>simpleMap</h1>
    <div id="map"></div>
    <button id="showRectangleButton">사각형 표시</button>
-   <script src="marker.js"></script>
+   <script src="drawMap.js"></script>
    <script src="flood.js"></script>
    <script>
-      function getUserLocation() {
-         return new Promise((resolve, reject) => {
-            if (!navigator.geolocation) {
-               reject("위치 정보가 지원되지 않습니다.");
-            } else {
-               navigator.geolocation.getCurrentPosition(
-                  position => resolve(position),
-                  error => reject(error)
-               );
-            } 
-         });
-      }
-
-      var map;
-      var poly;
-
       weatherResponse();
       drawMap();
-
    </script>
 
 </body>

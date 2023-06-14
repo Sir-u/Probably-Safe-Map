@@ -21,46 +21,17 @@
 
 <body>
     <h1>simpleMap</h1>
-    <div id="map"></div>
     <button id="showRectangleButton">사각형 표시</button>
+    <div id="map"></div>
+    <script src="drawMap.js"></script>
     <script src="marker.js"></script>
-    <script src="test/test.js"></script>
     <script>
-        function getUserLocation() {
-            return new Promise((resolve, reject) => {
-                if (!navigator.geolocation) {
-                    reject("위치 정보가 지원되지 않습니다.");
-                } else {
-                    navigator.geolocation.getCurrentPosition(
-                        position => resolve(position),
-                        error => reject(error)
-                    );
-                }
-            });
-        }
-
-        var map;
-        var poly;
-
-
-        test();
         drawMap();
-        const floodingUrl = 'http://apis.data.go.kr/6260000/BusanWaterImrsnInfoService/getWaterImrsnInfo?serviceKey=zLzLsz6TwuV3XckkNxeibskoB4TQWO%2B4E0Ob3QC4SLnFpBdhF%2BhH9BEm0%2FdPZPrCYKbtcj12ixLGeX24tWYSig%3D%3D&pageNo=1&numOfRows=10&resultType=json';
+        getPolygon();
+    </script>
 
-        fetch(floodingUrl)
-            .then((res) => res.json())
-            .then((resJson) => {
-                const flood = resJson.getWaterImrsnInfo.body.items.item;
-                console.log(flood);
 
-                for (var i = 0; i < flood.length; i++) {
-                    var name = flood[i]['siteName'];
-                    var sttus = flood[i]['sttus'];
-                    var sttusNm = flood[i]['sttusNm'];
 
-                    showPolygon(name, sttus);
-                }
-            });
     </script>
 
 </body>
