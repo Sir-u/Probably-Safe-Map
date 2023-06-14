@@ -1,3 +1,8 @@
+
+drawMap();
+click_listeners();
+
+
 function removeSearchSection_POINT() {
     // 검색 토글버튼 올라와있을때
     $('#searchSection_POINT').hide();
@@ -121,8 +126,21 @@ function searchPOI(searchKeyword, isStart){
 				// 지도 확대 레벨을 높임 (19가 최대인 듯)
 				map.setZoom(17);
 			
+				
+				//
+				if (isStart==0) {
+					
+					//marker_c 추가예정
+					
+				$("#searchKeyword").val(name);
+				showAreaRAIMarkers(lon-0.05, lat-0.05, lon+0.05, lat+0.05);   //해당 위치에서 대략 10km 반경내 위치 돌발정보 표시
+			
+				}
 				//출발지인 경우
-                if (isStart==1) {
+                else if (isStart==1) {
+
+					console.log("1");
+
                     if (marker_s) {
                         marker_s.setMap(null); //기존 시작마커 제거
                     }
@@ -137,9 +155,8 @@ function searchPOI(searchKeyword, isStart){
 
                     //검색란에 선택한 위치 세팅
                     $("#searchKeyword_start").val(name);
-					
+				
                 }
-				else if (isStart==0) {$("#searchKeyword").val(name);}
 				//도착지인 경우
                 else {
                     if (marker_e) {
@@ -171,6 +188,7 @@ function searchPOI(searchKeyword, isStart){
 
 //길찾기 버튼 클릭했을때 나타나는 출발지 검색&도착지 검색&경로표시 버튼들의 클릭리스너 설정
 function click_listeners() {
+	console.log("searchKeyword");
 	// //버튼 클릭시
 		$("#btn_select_place").click(function(){
 			//검색한 키워드 보냄
@@ -178,25 +196,26 @@ function click_listeners() {
 			searchPOI(searchKeyword, 0
 				
 				); //true일 때 출발지
+			console.log(searchKeyword);
 		});
 
 
-	//경로 검색-----------
-	   //출발지 검색 버튼 눌렀을 때
-	   $("#btn_select_start").click(function () {
-		resettingMap();
-		   // searchKeyword 값을 넘겨주기
-		   var searchKeyword = $('#searchKeyword_start').val();
-		   searchPOI(searchKeyword, 1); //true일 때 출발지
-	   });
+	// //경로 검색-----------
+	//    //출발지 검색 버튼 눌렀을 때
+	//    $("#btn_select_start").click(function () {
+	// 	resettingMap();
+	// 	   // searchKeyword 값을 넘겨주기
+	// 	   var searchKeyword = $('#searchKeyword_start').val();
+	// 	   searchPOI(searchKeyword, 1); //true일 때 출발지
+	//    });
    
-	   //도착지 검색 버튼 눌렀을 때
-	   $("#btn_select_dest").click(function () {
-		resettingMap();
-		//searchKeyword 값을 넘겨주기
-		   var searchKeyword = $('#searchKeyword_dest').val();
-		   searchPOI(searchKeyword, 2); //false일 때 도착지
-	   });
+	//    //도착지 검색 버튼 눌렀을 때
+	//    $("#btn_select_dest").click(function () {
+	// 	resettingMap();
+	// 	//searchKeyword 값을 넘겨주기
+	// 	   var searchKeyword = $('#searchKeyword_dest').val();
+	// 	   searchPOI(searchKeyword, 2); //false일 때 도착지
+	//    });
 	   
 	//    //장소 검색-----------
 	//    //장소 검색 버튼
@@ -236,32 +255,32 @@ function click_listeners() {
 
 
 	
-	//경로 검색 --------------------------------------------------------------
-	$("#btn_showway").click(function () {
-		////출발지, 검색지 값 받고
-		//출발지 위도경도 가져오기
-		var position_s = marker_s.getPosition();
-		var lat_s = position_s.lat();
-		var lng_s = position_s.lng();
+	// //경로 검색 --------------------------------------------------------------
+	// $("#btn_showway").click(function () {
+	// 	////출발지, 검색지 값 받고
+	// 	//출발지 위도경도 가져오기
+	// 	var position_s = marker_s.getPosition();
+	// 	var lat_s = position_s.lat();
+	// 	var lng_s = position_s.lng();
 
-		//도착지 위도경도 가져오기
-		var position_e = marker_e.getPosition();
-		var lat_e = position_e.lat();
-		var lng_e = position_e.lng();
+	// 	//도착지 위도경도 가져오기
+	// 	var position_e = marker_e.getPosition();
+	// 	var lat_e = position_e.lat();
+	// 	var lng_e = position_e.lng();
 
-		// 검색란의 마커, 팝업 제거
-		if (markerArr.length > 0) {
-			for (var i in markerArr) {
-				markerArr[i].setMap(null);
-			}
-		}
+	// 	// 검색란의 마커, 팝업 제거
+	// 	if (markerArr.length > 0) {
+	// 		for (var i in markerArr) {
+	// 			markerArr[i].setMap(null);
+	// 		}
+	// 	}
 
-		resettingMap();
+	// 	resettingMap();
 
-		routeTmap(lng_s,lat_s,lng_e,lat_e);
+	// 	routeTmap(lng_s,lat_s,lng_e,lat_e);
 
-		////경로검색, draw 함수 불러오기
-	})
+	// 	////경로검색, draw 함수 불러오기
+	// })
 }	
 
 
