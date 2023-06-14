@@ -4,9 +4,7 @@ var polygons = {}; // 개별 폴리곤 객체를 관리하는 객체
 var siteNames = []; // 변경된 변수 이름
 var sttusNm = [];
 
-
 function setPolygon(){
-
     for (var i = 0; i < item.length; i++) {
         item[i]['sttus'] = 60;
 
@@ -16,7 +14,6 @@ function setPolygon(){
         }
         sttusNm.push(item[i]['sttusNm']);
     }
-
 }
 
 async function getPolygon() {
