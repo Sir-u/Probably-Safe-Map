@@ -171,7 +171,10 @@ function drawRoute(){
         //console.log(lat,lng,endLat,endLng);
         routeTmap(lng,lat,endLng,endLat);
     }
-});}
+});
+}
+
+
 let isRouteVisible = false;
 function toggleRoute() {
     // 마커 표시 여부에 따라 마커 표시/삭제 실행

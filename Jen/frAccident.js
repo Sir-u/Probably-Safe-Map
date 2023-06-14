@@ -32,7 +32,7 @@ let latlon = [];
 let markerCluster;
 
 var icons = [
-  {imageUrl: "투명.png ", size: new Tmapv2.base.Size(35,35), fontSize: "0px"}];
+  {imageUrl: "https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/%ED%88%AC%EB%AA%85.png?raw=true ", size: new Tmapv2.base.Size(35,35), fontSize: "0px"}];
 
 function accidentMarker() {
   // 이전에 생성된 마커들 제거
@@ -56,7 +56,7 @@ function accidentMarker() {
           var marker = new Tmapv2.Marker({
             position: lonlat,
             map: map,
-            icon: 'marker_def.png',
+            icon: 'https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/marker_def.png?raw=true',
             title: title,
           });
 
@@ -118,24 +118,3 @@ document.addEventListener("DOMContentLoaded", function() { //domcontentloaded안
 function redirectToSearchPlace() {
   window.location.href = "search_place.html";
 }
-
-// Tmap API 초기화
-var map = new Tmapv2.Map("map_div", {
-  center: new Tmapv2.LatLng(37.5662952, 126.97794509999994), // 지도 초기 중심 좌표
-  zoom: 12, // 지도 초기 줌 레벨
-});
-
-// WMS 이미지 URL
-var wmsUrl = "www.safemap.go.kr/openApiService/wms/getLayerData.do?apikey=FQ2KSNIR-FQ2K-FQ2K-FQ2K-FQ2KSNIRMA";
-
-// WMS 레이어 생성
-var wmsLayer = new Tmapv2.extension.WMSLayer({
-  url: wmsUrl,
-  layers: "A2SM_FLUDMARKS",
-  styles: "A2SM_FludMarks",
-  format: "image/png",
-  transparent: true,
-});
-
-// Tmap에 WMS 레이어 추가
-map.addLayer(wmsLayer);
