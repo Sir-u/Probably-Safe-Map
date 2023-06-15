@@ -2,7 +2,7 @@
 drawMap();
 click_listeners();
 
-
+////검색 토글버튼 설정.
 function removeSearchSection_POINT() {
     // 검색 토글버튼 올라와있을때
     $('#searchSection_POINT').hide();
@@ -17,19 +17,44 @@ function showSearchSection_POINT() {
 
 function toggleFindPoint() {
     var button = document.querySelector('#findPlaceBtn');
-    var isPressed = button.getAttribute('aria-pressed') === 'false';
+	button.classList.toggle("changeColor_btn"); //버튼 색상을 지정해줌. 색상 설정은 css에서
+    var isPressed = button.getAttribute('aria-pressed') === 'true'; //aria-pressed속성을 설정해주고 true로 처음 설정
 
     if (isPressed) {
-        removeSearchSection_POINT(); //검색버튼 눌렀을 때 검색창 없애기
+        button.setAttribute('aria-pressed', 'false');
+        removeSearchSection_POINT(); // 검색버튼 눌렀을 때 검색창 없애기
     } else {
-        showSearchSection_POINT(); //검색버튼 눌렀을 때 검색창 띄우기
+        button.setAttribute('aria-pressed', 'true');
+        showSearchSection_POINT(); // 검색버튼 눌렀을 때 검색창 띄우기
     }
 }
 
+////길찾기 토글버튼 설정.
+function removeSearchRoute() {
+    // 길찾기 토글버튼 올라와있을때
+    $('#searchRoute').hide();
+    $('#result_div').hide();
+}
 
+function showSearchRoute() {
+    // 길찾기 토글버튼 눌러져있을때 --> 그냥 show하면 됨.
+    $('#searchRoute').show(); 
+    $('#result_div').show();
+}
 
+function toggleFindRoute() {
+    var button= document.querySelector('#findRouteBtn');
+	button.classList.toggle("changeColor_btn"); //버튼 색상을 지정해줌. 색상 설정은 css에서
+    var isPressed = button.getAttribute('aria-pressed') === 'true'; //aria-pressed속성을 설정해주고 true로 처음 설정
 
-
+    if (isPressed) {
+        button.setAttribute('aria-pressed', 'false');
+        removeSearchRoute(); // 검색버튼 눌렀을 때 검색창 없애기
+    } else {
+        button.setAttribute('aria-pressed', 'true');
+        showSearchRoute(); // 검색버튼 눌렀을 때 검색창 띄우기
+    }
+}
 
 
 var map, marker;
@@ -37,6 +62,51 @@ var markerArr = [];
 
 var marker_s;
 var marker_e;
+
+//시작마커 생성 함수
+function createStartMarker(lat, lon){
+	if (marker_s) {
+		marker_s.setMap(null); //기존 시작마커 제거
+		console.log("스타트마커 제거됨")
+	}
+
+	//출발지 마커로 저장
+	marker_s = new Tmapv2.Marker({
+		position: new Tmapv2.LatLng(lat, lon),
+		icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+		iconSize: new Tmapv2.Size(24, 38),
+		map: map
+	});
+}
+//도착마커 생성 함수
+function createDestMarker(lat, lon){
+	if (marker_e) {
+		marker_e.setMap(null); // Remove the old marker_e
+	}
+
+	//도착지 마커로 저장
+	marker_e = new Tmapv2.Marker({
+		position: new Tmapv2.LatLng(lat, lon),
+		icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
+		iconSize: new Tmapv2.Size(24, 38),
+		map: map
+	});
+}
+
+//위도 경도 바꾸기 함수
+var startLat, startLon; // 출발지 위도, 경도 저장 변수
+var destLat, destLon; // 도착지 위도, 경도 저장 변수
+//start
+function setStartLocation(lat, lon) {
+	startLat = lat; //출발 lat
+	startLon = lon; //도착 lon
+  }
+  //destination
+function setDestLocation(lat, lon) {
+destLat = lat; //도착 lat
+destLon = lon; //도착 lon
+}
+
 
 let isStart = 0;
 
@@ -119,7 +189,7 @@ function searchPOI(searchKeyword, isStart){
 				var name = $(this).data("name");
 			
 				// 예시로 경고창에 장소 정보 출력 (연습용)
-				alert("선택한 장소: " + name + "\n위도: " + lat + "\n경도: " + lon);
+				//alert("선택한 장소: " + name + "\n위도: " + lat + "\n경도: " + lon);
 			
 				 // 클릭한 위치를 지도의 중심으로 설정
                 map.setCenter(new Tmapv2.LatLng(lat, lon));
@@ -127,7 +197,7 @@ function searchPOI(searchKeyword, isStart){
 				map.setZoom(17);
 			
 				
-				//
+				//그냥 검색일 때
 				if (isStart==0) {
 					
 					//marker_c 추가예정
@@ -141,36 +211,18 @@ function searchPOI(searchKeyword, isStart){
 
 					console.log("1");
 
-                    if (marker_s) {
-                        marker_s.setMap(null); //기존 시작마커 제거
-                    }
+                    createStartMarker(lat, lon);
 
-                    //출발지 마커로 저장
-                    marker_s = new Tmapv2.Marker({
-                        position: new Tmapv2.LatLng(lat, lon),
-                        icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
-                        iconSize: new Tmapv2.Size(24, 38),
-                        map: map
-                    });
-
+					setStartLocation(lat, lon);
                     //검색란에 선택한 위치 세팅
                     $("#searchKeyword_start").val(name);
 				
                 }
 				//도착지인 경우
                 else {
-                    if (marker_e) {
-                        marker_e.setMap(null); // Remove the old marker_e
-                    }
+                    createDestMarker(lat, lon);
 
-                    //도착지 마커로 저장
-                    marker_e = new Tmapv2.Marker({
-                        position: new Tmapv2.LatLng(lat, lon),
-                        icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
-                        iconSize: new Tmapv2.Size(24, 38),
-                        map: map
-                    });
-
+					setDestLocation(lat, lon);
                     //검색란에 선택한 위치 세팅
                     $("#searchKeyword_dest").val(name);
                 }
@@ -188,104 +240,125 @@ function searchPOI(searchKeyword, isStart){
 
 //길찾기 버튼 클릭했을때 나타나는 출발지 검색&도착지 검색&경로표시 버튼들의 클릭리스너 설정
 function click_listeners() {
-	console.log("searchKeyword");
-	// //버튼 클릭시
+
+	//장소 버튼 검색 눌렀을 때
 		$("#btn_select_place").click(function(){
 			//검색한 키워드 보냄
 			var searchKeyword = $('#searchKeyword').val();
-			searchPOI(searchKeyword, 0
-				
-				); //true일 때 출발지
+			searchPOI(searchKeyword, 0); //0일 때 검색
 			console.log(searchKeyword);
 		});
 
 
-	// //경로 검색-----------
-	//    //출발지 검색 버튼 눌렀을 때
-	//    $("#btn_select_start").click(function () {
-	// 	resettingMap();
-	// 	   // searchKeyword 값을 넘겨주기
-	// 	   var searchKeyword = $('#searchKeyword_start').val();
-	// 	   searchPOI(searchKeyword, 1); //true일 때 출발지
-	//    });
+	//경로 검색--------------------------------------------------
+	   //출발지 검색 버튼 눌렀을 때
+	   $("#btn_select_start").click(function () {
+		resettingMap();
+		   // searchKeyword 값을 넘겨주기
+		   var searchKeyword = $('#searchKeyword_start').val();
+		   searchPOI(searchKeyword, 1); //true일 때 출발지
+	   });
    
-	//    //도착지 검색 버튼 눌렀을 때
-	//    $("#btn_select_dest").click(function () {
-	// 	resettingMap();
-	// 	//searchKeyword 값을 넘겨주기
-	// 	   var searchKeyword = $('#searchKeyword_dest').val();
-	// 	   searchPOI(searchKeyword, 2); //false일 때 도착지
-	//    });
+	   //도착지 검색 버튼 눌렀을 때
+	   $("#btn_select_dest").click(function () {
+		resettingMap();
+		//searchKeyword 값을 넘겨주기
+		   var searchKeyword = $('#searchKeyword_dest').val();
+		   searchPOI(searchKeyword, 2); //false일 때 도착지
+	   });
 	   
-	//    //장소 검색-----------
-	//    //장소 검색 버튼
-	//    $("#btn_select_point").click(function () {
+	   //장소 검색-----------
+	   //장소 검색 버튼
+	   $("#btn_select_point").click(function () {
    
-	// 	   var searchKeyword = $('#searchKeyword_point').val();
-	// 	   searchPOI(searchKeyword, true);
-	//    });
+		   var searchKeyword = $('#searchKeyword_point').val();
+		   searchPOI(searchKeyword, true);
+	   });
    
-	//    $("#btn_showPointRAI").click(function () {
-	// 	   //해당 위치의 위도경도 가져오기
-	// 	   var position_s = marker_s.getPosition();
-	// 	   var lat = position_s.lat();
-	// 	   var lng = position_s.lng();
+	   $("#btn_showPointRAI").click(function () {
+		   //해당 위치의 위도경도 가져오기
+		   var position_s = marker_s.getPosition();
+		   var lat = position_s.lat();
+		   var lng = position_s.lng();
    
-	// 	   // 기존 마커, 팝업 제거
-	// 	   if (markerArr.length > 0) {
-	// 		   for (var i in markerArr) {
-	// 				markerArr[i].setMap(null);
-	// 		   }
-	// 	   }
+		   // 기존 마커, 팝업 제거
+		   if (markerArr.length > 0) {
+			   for (var i in markerArr) {
+					markerArr[i].setMap(null);
+			   }
+		   }
 		   
-	// 	   if(resultdrawArr.length != 0){   //경로표시 되어있으면
-	// 		   resettingMap();
-	// 	   }
+		   if(resultdrawArr.length != 0){   //경로표시 되어있으면
+			   resettingMap();
+		   }
    
-	// 	   var marker_p = new Tmapv2.Marker({
-	// 		   position: new Tmapv2.LatLng(lat, lng),
-	// 		   icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
-	// 		   iconSize: new Tmapv2.Size(24, 38),
-	// 		   map: map
-	// 	   });
+		   var marker_p = new Tmapv2.Marker({
+			   position: new Tmapv2.LatLng(lat, lng),
+			   icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+			   iconSize: new Tmapv2.Size(24, 38),
+			   map: map
+		   });
    
-	// 	   showAreaRAIMarkers(lng-0.05, lat-0.05, lng+0.05, lat+0.05);   //해당 위치에서 대략 10km 반경내 위치 돌발정보 표시
-   
-	//    });
+		   showAreaRAIMarkers(lng-0.05, lat-0.05, lng+0.05, lat+0.05);   //해당 위치에서 대략 10km 반경내 위치 돌발정보 표시
 
+	   });
 
-	
-	// //경로 검색 --------------------------------------------------------------
-	// $("#btn_showway").click(function () {
-	// 	////출발지, 검색지 값 받고
-	// 	//출발지 위도경도 가져오기
-	// 	var position_s = marker_s.getPosition();
-	// 	var lat_s = position_s.lat();
-	// 	var lng_s = position_s.lng();
+	//경로 검색 눌렀을 때 --------------------------------------------------------------
+	$("#btn_showway").click(function () {
+		////출발지, 검색지 값 받고
+		//출발지 위도경도 가져오기
+		var position_s = marker_s.getPosition();
+		var lat_s = position_s.lat();
+		var lng_s = position_s.lng();
 
-	// 	//도착지 위도경도 가져오기
-	// 	var position_e = marker_e.getPosition();
-	// 	var lat_e = position_e.lat();
-	// 	var lng_e = position_e.lng();
+		//도착지 위도경도 가져오기
+		var position_e = marker_e.getPosition();
+		var lat_e = position_e.lat();
+		var lng_e = position_e.lng();
 
-	// 	// 검색란의 마커, 팝업 제거
-	// 	if (markerArr.length > 0) {
-	// 		for (var i in markerArr) {
-	// 			markerArr[i].setMap(null);
-	// 		}
-	// 	}
+		// 검색란의 마커, 팝업 제거
+		if (markerArr.length > 0) {
+			for (var i in markerArr) {
+				markerArr[i].setMap(null);
+			}
+		}
 
-	// 	resettingMap();
+		resettingMap();
 
-	// 	routeTmap(lng_s,lat_s,lng_e,lat_e);
+		routeTmap(lng_s,lat_s,lng_e,lat_e);
 
-	// 	////경로검색, draw 함수 불러오기
-	// })
+		////경로검색, draw 함수 불러오기
+	})
+	change_place();
 }	
 
 
+function change_place(){
+	//경로 검색 눌렀을 때 -------------------------------------------------------------
+	$("#btn_change").click(function() {
+		 // 출발지와 도착지 값을 서로 교환
+		 var tempLat = startLat;
+		 var tempLon = startLon;
+		 startLat = destLat;
+		 startLon = destLon;
+		 destLat = tempLat;
+		 destLon = tempLon;
 
+		//표시되는 위치 바꾸기
+		var startValue = $('#searchKeyword_start').val();
+		var destValue = $('#searchKeyword_dest').val();
 
+		$('#searchKeyword_start').val(destValue);
+		$('#searchKeyword_dest').val(startValue);
+		console.log(destValue);
+		console.log(startValue);
+
+		  // 출발지와 도착지 마커 이미지도 교환
+		  createStartMarker(startLat, startLon);
+		  createDestMarker(destLat, destLon);
+	});
+	
+}
 
 
 

@@ -78,6 +78,7 @@
 
  <!-- 버튼들 -->
  <div class="btns">
+
     <!-- 결빙레이어버튼 -->
   <div class="frost_btn">
   <button type="button" class="btn btn-light shadow-sm" id="frostBtn" onclick="toggleButtonColor()">
@@ -100,7 +101,7 @@
 
   <!-- 검색버튼 -->
   <div class="findPlace_btn">
-    <button type="button" class="btn btn-light shadow-sm" onclick="toggleFindPoint()" id="findPlaceBtn">
+    <button type="button" class="btn btn-light shadow-sm" id="findPlaceBtn" onclick="toggleFindPoint()">
       <div class="flex-container">
         <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/>
         <p class="text">검색</p>
@@ -108,11 +109,9 @@
     </button>
   </div>
 
-  
-
   <!-- 길찾기버튼 -->
   <div class="findRoute_btn">
-    <button type="button" class="btn btn-light shadow-sm" id="findRouteBtn">
+    <button type="button" class="btn btn-light shadow-sm" id="findRouteBtn" onclick="toggleFindRoute()">
       <div class="flex-container">
         <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/Oncoming%20Automobile.png?raw=true" width="20" height="20" class="image"/>
         <p class="text">길찾기</p>
@@ -124,8 +123,8 @@
  <!-- 지도 그리기 -->
   <div id="map" style="position: relative; z-index: 1;">
 
+     <!-- 검색창, 검색버튼 -->
       <div id="searchSection_POINT" style="display: none;">
-        <!-- 검색버튼 -->
         <div class="input-group mb-3"  style="width: 40%;" id="point_search">
           <input type="text" class="form-control" placeholder="장소 검색"  id="searchKeyword">
           <button type="button" class="btn btn-primary" style="width: 100px;" id="btn_select_place">검색</button>
@@ -138,7 +137,6 @@
     </div>
     
       <!-- 검색결과  -->
-    
       <div id="result_div" style="display: none;">
           <div class="title" style="font-size: 20px;"><strong>Search</strong> Results</div>
           <div class="rst_wrap">
@@ -147,8 +145,31 @@
               </ul>
           </div>
       </div>
-    
 
+      <!-- 길찾기-------------------- -->
+    <div id="searchRoute" style="display: none;">
+      <!-- 출발지검색 -->
+      <div class="input-group mb-3"  style="width: 400px;" id="start_search">
+        <input type="text" class="form-control" placeholder="출발지 검색"  id="searchKeyword_start">
+        <button type="button" class="btn btn-primary" style="width: 100px;" id="btn_select_start">검색</button>
+    </div>
+    <!-- 도착지검색 -->
+    <div class="input-group mb-3"  style="width: 400px;" id="dest_search">
+        <input type="text" class="form-control" placeholder="도착지 검색"  id="searchKeyword_dest">
+        <button type="button" class="btn btn-primary" style="width: 100px;" id="btn_select_dest">검색</button>
+    </div>
+    <!-- 경로표시 -->
+    <div class="input-group mb-3"  style="width: 400px;" id="btn_showway_div">
+        <button type="button" class="btn btn-primary" id="btn_showway">경로표시</button>
+    </div>
+
+    <div class="input-group mb-3"  style="width: 400px;" id="change">
+      <button type="button" class="btn btn-primary" id="btn_change">change</button>
+  </div>
+    
+  </div>
+    
+<!-- 지도 그리기 -------------------->
         <script>
             function getUserLocation() {
                 return new Promise((resolve, reject) => {
