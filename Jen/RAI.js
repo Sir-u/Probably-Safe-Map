@@ -9,7 +9,7 @@ var listItems = [];
 // cors 에러 오류 때문에 url 앞에 https://cors-anywhere.herokuapp.com/ 추가
 // https://cors-anywhere.herokuapp.com/corsdemo 에서 request temporary access to the demo server
 
-fetch('https://cors-anywhere.herokuapp.com/http://www.utic.go.kr:8080/guide/imsOpenData.do?key=lZrvhlh9xs710jGVRIgOQGkj4Jlkvxwyozu2O47XRZBF1Q6ZxGxLqvE0KEvJweD')
+fetch('https://cors-anywhere.herokuapp.com/http://www.utic.go.kr:8080/guide/imsOpenData.do?key=l5oEBSwc1MsEN98xZiiSGLwg8HkJMWJwj7p0sbYaR7LDVZhCz3EmCTlCcWtiK')
     .then(response => response.text())
     .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
     .then(data => {

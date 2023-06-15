@@ -2,15 +2,22 @@
 drawMap();
 click_listeners();
 
+var map, marker;
+var markerArr = [];
+
+var marker_s;
+var marker_e;
+
 ////검색 토글버튼 설정.
 function removeSearchSection_POINT() {
-    // 검색 토글버튼 올라와있을때
+    // 검색 토글버튼 올라와있을때, 이거누르면 없어짐
     $('#searchSection_POINT').hide();
     $('#result_div').hide();
+	resetSearch("searchKeyword");
 }
 
 function showSearchSection_POINT() {
-    // 검색 토글버튼 눌러져있을때 --> 그냥 show하면 됨.
+    // 검색 토글버튼 눌러져있을때, 이거 누르면 생겨남
     $('#searchSection_POINT').show(); 
     $('#result_div').show();
 }
@@ -31,15 +38,37 @@ function toggleFindPoint() {
 
 ////길찾기 토글버튼 설정.
 function removeSearchRoute() {
-    // 길찾기 토글버튼 올라와있을때
+    // 길찾기 토글버튼 올라와있을때, 이거누르면 없어짐
     $('#searchRoute').hide();
     $('#result_div').hide();
+	resettingMap();
+	marker_s.setVisible(false);
+	marker_e.setVisible(false);
+	resetSearch("searchKeyword_start");
+	resetSearch("searchKeyword_dest");
 }
 
 function showSearchRoute() {
-    // 길찾기 토글버튼 눌러져있을때 --> 그냥 show하면 됨.
-    $('#searchRoute').show(); 
+    // 길찾기 토글버튼 눌러져있을때, 이거 누르면 생겨남
+    $('#searchRoute').show();
     $('#result_div').show();
+}
+
+//장소검색에서 경로검색으로
+function placeToRoute(lat, lon, name) {
+    // 길찾기 토글버튼 눌러져있을때 --> 그냥 show하면 됨.
+	$("#btn_place_to_route").click(function(){
+		//위도 경도 가져오기		
+		console.log("눌렀다.");
+		//경로검색창 띄우기
+		showSearchRoute();
+		createStartMarker(lat, lon);
+		setStartLocation(lat, lon);
+		//keyword 띄우기
+		var searchKeyword = $('#searchKeyword_start').val(name);
+		searchPOI(searchKeyword, 1); //0일 때 검색
+		console.log(searchKeyword);
+	});
 }
 
 function toggleFindRoute() {
@@ -56,18 +85,11 @@ function toggleFindRoute() {
     }
 }
 
-
-var map, marker;
-var markerArr = [];
-
-var marker_s;
-var marker_e;
-
 //시작마커 생성 함수
 function createStartMarker(lat, lon){
 	if (marker_s) {
 		marker_s.setMap(null); //기존 시작마커 제거
-		console.log("스타트마커 제거됨")
+		//console.log("스타트마커 제거됨")
 	}
 
 	//출발지 마커로 저장
@@ -204,7 +226,10 @@ function searchPOI(searchKeyword, isStart){
 					
 				$("#searchKeyword").val(name);
 				showAreaRAIMarkers(lon-0.05, lat-0.05, lon+0.05, lat+0.05);   //해당 위치에서 대략 10km 반경내 위치 돌발정보 표시
-			
+
+				console.log("아아아아아");
+				console.log(name, lon, lat);
+				placeToRoute(lat, lon, name);		
 				}
 				//출발지인 경우
                 else if (isStart==1) {
@@ -241,7 +266,7 @@ function searchPOI(searchKeyword, isStart){
 //길찾기 버튼 클릭했을때 나타나는 출발지 검색&도착지 검색&경로표시 버튼들의 클릭리스너 설정
 function click_listeners() {
 
-	//장소 버튼 검색 눌렀을 때
+	//장소 검색 버튼 눌렀을 때
 		$("#btn_select_place").click(function(){
 			//검색한 키워드 보냄
 			var searchKeyword = $('#searchKeyword').val();
@@ -250,7 +275,7 @@ function click_listeners() {
 		});
 
 
-	//경로 검색--------------------------------------------------
+	//경로 검색 버튼 눌렀을 때
 	   //출발지 검색 버튼 눌렀을 때
 	   $("#btn_select_start").click(function () {
 		resettingMap();
@@ -265,14 +290,6 @@ function click_listeners() {
 		//searchKeyword 값을 넘겨주기
 		   var searchKeyword = $('#searchKeyword_dest').val();
 		   searchPOI(searchKeyword, 2); //false일 때 도착지
-	   });
-	   
-	   //장소 검색-----------
-	   //장소 검색 버튼
-	   $("#btn_select_point").click(function () {
-   
-		   var searchKeyword = $('#searchKeyword_point').val();
-		   searchPOI(searchKeyword, true);
 	   });
    
 	   $("#btn_showPointRAI").click(function () {
@@ -303,6 +320,11 @@ function click_listeners() {
 
 	   });
 
+
+
+
+
+
 	//경로 검색 눌렀을 때 --------------------------------------------------------------
 	$("#btn_showway").click(function () {
 		////출발지, 검색지 값 받고
@@ -330,13 +352,13 @@ function click_listeners() {
 		////경로검색, draw 함수 불러오기
 	})
 	change_place();
+	
 }	
 
-
+//출발 도착 장소 change
 function change_place(){
-	//경로 검색 눌렀을 때 -------------------------------------------------------------
 	$("#btn_change").click(function() {
-		 // 출발지와 도착지 값을 서로 교환
+		 // 출발지와 도착지 위치값을 서로 교환
 		 var tempLat = startLat;
 		 var tempLon = startLon;
 		 startLat = destLat;
@@ -344,7 +366,7 @@ function change_place(){
 		 destLat = tempLat;
 		 destLon = tempLon;
 
-		//표시되는 위치 바꾸기
+		//검색창에 표시되는 장소명 바꾸기
 		var startValue = $('#searchKeyword_start').val();
 		var destValue = $('#searchKeyword_dest').val();
 
@@ -356,14 +378,34 @@ function change_place(){
 		  // 출발지와 도착지 마커 이미지도 교환
 		  createStartMarker(startLat, startLon);
 		  createDestMarker(destLat, destLon);
+
+		  resettingMap();
 	});
 	
 }
 
+// 검색창과 관련된 요소들을 초기화
+function resetSearch(keyName) {
+	var searchInput = document.getElementById(keyName);
+	searchInput.value = '';
+   //console.log(markerArr.length);
+	//마커 없애기
+	for (var i = 0; i < markerArr.length; i++) {
+		markerArr[i].setVisible(false);
+	  }
 
+	//검색결과 리스트 지우기
+	var listItems = document.getElementsByClassName('place-items');
+	console.log(listItems.length);
 
+	//업데이트 방지를 위해 역순으로 지워줌
+	for (var i = listItems.length - 1; i >= 0; i--) {
+		var listItem = listItems[i];
+		listItem.remove();
+	  }
+  }
 
-//경로검색--------------------------------------------------------------
+//경로검색-----------------------------------------------------------------------------------------------------------
 var resultdrawArr = [];
 function routeTmap(startX, startY, endX, endY) {
 	var drawInfoArr = [];
@@ -486,8 +528,8 @@ function drawLine(arrPoint, traffic) {
 
 //초기화 기능
 function resettingMap() {
-	// marker_s.setMap(null);
-    // marker_e.setMap(null);
+	//marker_s.setMap(null);
+    //marker_e.setMap(null);
 
 	//기존경로 삭제
 	if (resultdrawArr.length > 0) {

@@ -1,6 +1,7 @@
 #map {
+    /* top:5vh;
     width: 100%;
-    height: 95vh;
+    height: 95vh; */
     /*뷰포트 높이 95%*/
 }
 
@@ -25,46 +26,40 @@
 
 /* 안전할지도 타이틀 --------------------------------------- */
 #title_safe {
-    color: #333333;
+    color: #efa83f;
     font-family: 'Cute Font', cursive;
     font-weight: bold;
-    font-size: 32px;
+    font-size: 34px;
     letter-spacing: 1px;
     margin-right: 1px;
 }
 
 #title_map {
-    color: #333333;
-    font-family: 'Cute Font';
+    color: #74d347;
+    font-family: 'Cute Font', cursive;
     font-weight: bold;
-    font-size: 32px;
+    font-size: 34px;
     letter-spacing: 1px;
 }
 
 
 /* 헤더 ----------------------------------------------*/        
 .navbar {
+    width: 100%;
     height: 56px;
-    background-color:#ffffff !important;
+    /* background-color:#333333 !important; */
   }
 
-.navbar .container-fluid{
-    margin: 0px;
-    padding: 4px;
-    position: fixed;
-}
+
+/* 버튼들 div ---------------------------------------------*/
 
 
-/* 장소검색 버튼 ------------------------------------------------*/
-.RAI_btn {
-    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
-    bottom: 1.0em;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-.RAI_btn button {
-    border-radius: 10px; /*둥글게*/
+.btns {
+    
+    position: fixed;  
+    z-index: 1000;
+    top: 72px;
+
 }
 
 
@@ -145,8 +140,8 @@
   }
 
 .changeColor_btn {
-    background-color: #333333;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #191919;
 }
 
 .frost_btn button p{
@@ -161,9 +156,13 @@
 }
 
 /* 침수버튼 ---------------------------------------------*/
-.flooding_btn {
+#floodingBtn {
     position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
     left: 286px;
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
 }
 
 .flooding_btn .flex-container{
@@ -189,10 +188,22 @@
     margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
 }
 
+
+
+/* 하단 통제정보 버튼 ------------------------------------------------*/
+.RAI_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    bottom: 1.0em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.RAI_btn button {
+    border-radius: 10px; /*둥글게*/
+}
+
 /* 하단 통제정보 버튼 ---------------------------------------------*/
 .RAI_btn button {
-    background-color: #ffffff;
-    color: #333333;
     padding: 12px;
 }
 .RAI_btn .flex-container{
@@ -202,7 +213,7 @@
 }
 .RAI_btn #rai_cnt {
     font-weight: 700;
-    color: #333333;
+    color: #efa83f;
 }
 .RAI_btn button .image {
     margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
@@ -225,54 +236,35 @@
     padding: 5px 10px;
   }
 
-/* 버튼들 div ---------------------------------------------*/
+/* 장소 검색창----------------- */
 
-
-.btns {
-    
-    position: fixed;  
-    z-index: 1000;
-    top: 65px;
-
+#searchSection_POINT{
+    position: fixed;
+    z-index: 3;
+    top: 110px;
+    margin:16px;
+    width: 100%;
+}
+#point_search{
+    height: 48px;
 }
 
-/* 장소 검색창 관련 ---------------------------------------------*/
-    #result_div {        /* 검색 결과란 */
+#btn_place_to_route{
+    font-size: 14px;
+    background-color: #efa83f;
+}
+
+
+
+
+
+/* 검색결과---------------------------------------------------------*/
+    #result_div {        
     position: absolute; 
     overflow: auto;
     background-color: rgba(255,255,255,0.7); /* 백그라운드 컬러 흰색, 투명도 0.7 */
     z-index: 1000;
     }
-
-    .place-items{
-        /* 커서를 손가락 모양으로 바꿈 */
-        cursor : pointer;
-      }
-    
-    #point_search {      /* 검색버튼> 포인트 장소 검색 */
-    position: absolute; 
-    z-index: 1000;
-    top: 50px;
-    }
-    
-    #btn_showPointRAI_div {      /* 검색버튼> 주변돌발정보표시 버튼 */
-    position: absolute; 
-    z-index: 1000;
-    top: 90px;
-    }
-
-    #point_search {      /* 검색버튼> 포인트 장소 검색 */
-        position: absolute; 
-        z-index: 1000;
-        top: 50px;
-        }
-    
-    #searchRoute {      /* 검색버튼> 포인트 장소 검색 */
-    position: absolute; 
-    z-index: 1000;
-    top: 50px;
-    }
-    
     
     /* Medium devices (tablets, less than 992px) */
     @media (max-width: 992px) { 

@@ -24,30 +24,15 @@
     <!-- 구글폰트 갖고오기  -->
     <link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap' rel="stylesheet">
-    <!-- <script>
-        $(document).ready(function() {
-          var sentences = ["문장 1", "문장 2", "문장 3"]; // 표시할 문장들
-          var currentIndex = 0;
-          var interval = 2000; // 시간 간격 (2초)
-    
-          function changeSentence() {
-            $("#sentence").text(sentences[currentIndex]);
-            currentIndex = (currentIndex + 1) % sentences.length;
-          }
-    
-          setInterval(changeSentence, interval);
-        });
-      </script>
-      <div id="sentence"></div> -->
 </head>
 
 <body>
    <!-- 헤더 -->
-    <nav class="navbar navbar-expand" style="position: relative; z-index: 2;">
+    <nav class="navbar navbar-dark bg-dark navbar-expand shadow-sm fixed-top">
       <div class="container-fluid">
               <!--타이틀-->
               <div class="navbar-brand" href="" style="padding-left: 0.938em;"> 
-                <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/safe_map_icon_colored.png?raw=true" width="37" height="37" class="d-inline-block align-middle" alt="" loading="lazy">
+                <img src="safe_map_icon_sky.png" width="32" height="32" class="d-inline-block align-middle" alt="" loading="lazy">
                 <span id="title_safe" class="d-inline-block align-middle">안전할</span><span id="title_map" class="d-inline-block align-middle">지도</span>
                </div>
 
@@ -81,9 +66,9 @@
 
     <!-- 결빙레이어버튼 -->
   <div class="frost_btn">
-  <button type="button" class="btn btn-light shadow-sm" id="frostBtn" onclick="toggleButtonColor()">
+  <button type="button" class="btn btn-dark shadow-sm" id="frostBtn" onclick="toggleButtonColor()" style="border:none;">
     <div class="flex-container">
-      <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/Snowman%20Without%20Snow.png?raw=true" width="20" height="20" class="image"/>
+      <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Snowman%20Without%20Snow.png?raw=true" width="20" height="20" class="image"/>
       <p class="text">결빙</p>
     </div>
   </button>
@@ -91,59 +76,65 @@
 
 <!-- 침수레이어버튼 -->
 <div class="flooding_btn">
-    <button type="button" class="btn btn-light shadow-sm" id="floodingBtn" >
+    <button type="button" class="btn btn-dark shadow-sm" id="floodingBtn" style="border:none;">
       <div class="flex-container">
-        <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/Umbrella%20With%20Rain%20Drops.png?raw=true" width="20" height="20" class="image"/>
+        <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Umbrella%20With%20Rain%20Drops.png?raw=true" width="20" height="20" class="image"/>
         <p class="text">침수</p>
       </div>
     </button>
   </div>
 
   <!-- 검색버튼 -->
+  <div class="place_bundle">
   <div class="findPlace_btn">
-    <button type="button" class="btn btn-light shadow-sm" id="findPlaceBtn" onclick="toggleFindPoint()">
+    <button type="button" class="btn btn-dark shadow-sm" id="findPlaceBtn" onclick="toggleFindPoint()" style="border:none;">
       <div class="flex-container">
-        <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/>
-        <p class="text">검색</p>
+        <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/>
+        <p class="text">장소</p>
       </div>
     </button>
   </div>
 
+  <!-- 검색창, 검색버튼 -->
+  <div id="searchSection_POINT" style="display: none;">
+    <div class="input-group mb-3 shadow-sm"  style="width: 40%;" id="point_search">
+      <input type="text" class="form-control" placeholder="장소를 입력해주세요"  id="searchKeyword" style="border:none;">
+      <button type="button" class="btn btn-light" style="width: 50px; border:none;" id="btn_select_place"><img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/></button>
+  </div>
+  <div class="input-group mb-3"  style="width: 400px;" id="place_to_route">
+    <button type="button" class="btn shadow-sm" id="btn_place_to_route">이 장소로 길찾기</button>
+</div>
+  <!-- 주변 돌발정보 표시 타이틀 -->
+  <!-- <div class="input-group mb-3"  style="width: 400px;" id="place_to_route">
+      <button type="button" class="btn btn-primary" id="btn_place_to_route">주변 돌발정보 표시</button>
+  </div> -->
+</div>
+</div>
+
   <!-- 길찾기버튼 -->
-  <div class="findRoute_btn">
-    <button type="button" class="btn btn-light shadow-sm" id="findRouteBtn" onclick="toggleFindRoute()">
+  <div class="findRoute_btn" style="border:none;">
+    <button type="button" class="btn btn-dark shadow-sm" id="findRouteBtn" onclick="toggleFindRoute()">
       <div class="flex-container">
-        <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/Oncoming%20Automobile.png?raw=true" width="20" height="20" class="image"/>
+        <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Oncoming%20Automobile.png?raw=true" width="20" height="20" class="image"/>
         <p class="text">길찾기</p>
       </div>
     </button>
   </div>
 </div>
 
- <!-- 지도 그리기 -->
-  <div id="map" style="position: relative; z-index: 1;">
+ 
 
-     <!-- 검색창, 검색버튼 -->
-      <div id="searchSection_POINT" style="display: none;">
-        <div class="input-group mb-3"  style="width: 40%;" id="point_search">
-          <input type="text" class="form-control" placeholder="장소 검색"  id="searchKeyword">
-          <button type="button" class="btn btn-primary" style="width: 100px;" id="btn_select_place">검색</button>
-      </div>
-    
-      <!-- 주변 돌발정보 표시 타이틀 -->
-      <!-- <div class="input-group mb-3"  style="width: 400px;" id="btn_showPointRAI_div">
-          <button type="button" class="btn btn-primary" id="btn_showPointRAI">주변 돌발정보 표시</button>
-      </div> -->
-    </div>
+     
     
       <!-- 검색결과  -->
       <div id="result_div" style="display: none;">
-          <div class="title" style="font-size: 20px;"><strong>Search</strong> Results</div>
+          <div class="title" style="font-size: 20px;"><strong>검색 결과</strong></div>
           <div class="rst_wrap">
               <ul id="searchResult" name="searchResult" style="list-style-type:none;" class="list-group">  <!-- li 아이템의 검은점 아이콘 삭제 -->
-                  <li class="list-group-item">검색 결과</li>
+                  <!-- <li class="list-group-item">검색 결과</li> -->
               </ul>
           </div>
+          
       </div>
 
       <!-- 길찾기-------------------- -->
@@ -162,13 +153,14 @@
     <div class="input-group mb-3"  style="width: 400px;" id="btn_showway_div">
         <button type="button" class="btn btn-primary" id="btn_showway">경로표시</button>
     </div>
-
+    <!-- 시작 도착 장소 변경 -->
     <div class="input-group mb-3"  style="width: 400px;" id="change">
       <button type="button" class="btn btn-primary" id="btn_change">change</button>
   </div>
     
   </div>
-    
+<!-- 지도 그리기 -->
+  <div id="map" style="position: absolute; top: 7vh; z-index:1">     
 <!-- 지도 그리기 -------------------->
         <script>
             function getUserLocation() {
@@ -195,7 +187,7 @@
                     map = new Tmapv2.Map("map", {
                         center: new Tmapv2.LatLng(position.coords.latitude, position.coords.longitude),      //맵생성, 현재 위치의 위도와 경도를 center로 지정
                         width: "100%",
-                        height: "95vh",
+                        height: "93vh",
                         zoom: 12,
                     });
                 } catch (error) {
@@ -207,25 +199,25 @@
                     map = new Tmapv2.Map("map", {
                         center: new Tmapv2.LatLng(35.133238684709, 129.10144001966),         //부경대 위도경도
                         width: "100%",
-                        height: "95vh",
+                        height: "93vh",
                         zoom: 10,
                     });
                 }
             }
-            
         </script>
-    </div>
+  </div>
+
 
     <!-- 하단 통제정보 버튼 -->
-    <div class="RAI_btn" style="z-index: 5;">
-    <button type="button" class="btn btn-light shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 98%;"> <!-- 버튼크기 가로 98% -->
+    <div class="RAI_btn" style="z-index:2">
+    <button type="button" class="btn btn-dark shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 98%;"> <!-- 버튼크기 가로 98% -->
         <div class="flex-container">
-        <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/Hammer%20And%20Wrench.png?raw=true" width="20" height="20" class="image"/>
-        <span id="rai_first">현재</span> 통제정보가 <span id="rai_cnt">6</span>건 있습니다.     <!--정보 건수는 데이터 불러올때 동적으로 삽입-->
+        <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Hammer%20And%20Wrench.png?raw=true" width="20" height="20" class="image"/>
+        <span id="rai_first">현재</span> 통제정보가 <span id="rai_cnt"></span>건 있습니다.     <!--정보 건수는 데이터 불러올때 동적으로 삽입-->
     </div>
     </button>
     </div>
- 
+
     <!-- 모달 태그 -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">         <!-- 스크롤 가능하도록 modal-dialog-scrollable -->
@@ -239,6 +231,7 @@
                 </div>
             </div>
         </div>
+
 
 
         <script src="frAccident.js"></script>
