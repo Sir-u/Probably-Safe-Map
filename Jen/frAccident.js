@@ -32,7 +32,7 @@ let latlon = [];
 let markerCluster;
 
 var icons = [
-  {imageUrl: "https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/%ED%88%AC%EB%AA%85.png?raw=true ", size: new Tmapv2.base.Size(35,35), fontSize: "0px"}];
+  {imageUrl: "https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/%ED%88%AC%EB%AA%85.png?raw=true", size: new Tmapv2.base.Size(35,35), fontSize: "0px"}];
 
 function accidentMarker() {
   // 이전에 생성된 마커들 제거
@@ -56,7 +56,7 @@ function accidentMarker() {
           var marker = new Tmapv2.Marker({
             position: lonlat,
             map: map,
-            icon: 'https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/marker_def.png?raw=true',
+            icon: 'https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/marker_frost.png?raw=true',
             title: title,
           });
 

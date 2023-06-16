@@ -17,7 +17,7 @@
     <!-- js파일 연결 -->
     <!-- <script src="safemap_RAI.js"></script> -->
 
-	  <!-- <script src="frRoute.js"></script> -->
+	  <!-- </script> -->
     <!-- css연결 -->
     <link rel="stylesheet" href="style.css">
 
@@ -97,13 +97,12 @@
 
   <!-- 검색창, 검색버튼 -->
   <div id="searchSection_POINT" style="display: none;">
-    <div class="input-group mb-3 shadow-sm"  style="width: 40%;" id="point_search">
-      <input type="text" class="form-control" placeholder="장소를 입력해주세요"  id="searchKeyword" style="border:none;">
-      <button type="button" class="btn btn-light" style="width: 50px; border:none;" id="btn_select_place"><img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/></button>
+    <div class="input-group" id="point_search">
+      <input type="text" class="form-control  shadow-sm" placeholder="장소를 입력해주세요"  id="searchKeyword" style="border:none;">
+      <button type="button" class="btn btn-light  shadow-sm" style="width: 50px; border:none;" id="btn_select_place"><img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/></button>
   </div>
-  <div class="input-group mb-3"  style="width: 400px;" id="place_to_route">
-    <button type="button" class="btn shadow-sm" id="btn_place_to_route">이 장소로 길찾기</button>
-</div>
+      <button type="button" class="btn shadow-sm" id="btn_place_to_route">이 장소로 길찾기</button>
+
   <!-- 주변 돌발정보 표시 타이틀 -->
   <!-- <div class="input-group mb-3"  style="width: 400px;" id="place_to_route">
       <button type="button" class="btn btn-primary" id="btn_place_to_route">주변 돌발정보 표시</button>
@@ -112,8 +111,8 @@
 </div>
 
   <!-- 길찾기버튼 -->
-  <div class="findRoute_btn" style="border:none;">
-    <button type="button" class="btn btn-dark shadow-sm" id="findRouteBtn" onclick="toggleFindRoute()">
+  <div class="findRoute_btn" >
+    <button type="button" class="btn btn-dark shadow-sm" id="findRouteBtn" style="border:none;" onclick="toggleFindRoute()">
       <div class="flex-container">
         <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Oncoming%20Automobile.png?raw=true" width="20" height="20" class="image"/>
         <p class="text">길찾기</p>
@@ -128,88 +127,93 @@
     
       <!-- 검색결과  -->
       <div id="result_div" style="display: none;">
-          <div class="title" style="font-size: 20px;"><strong>검색 결과</strong></div>
+          <div class="title">검색결과</div>
           <div class="rst_wrap">
               <ul id="searchResult" name="searchResult" style="list-style-type:none;" class="list-group">  <!-- li 아이템의 검은점 아이콘 삭제 -->
                   <!-- <li class="list-group-item">검색 결과</li> -->
               </ul>
           </div>
-          
       </div>
 
       <!-- 길찾기-------------------- -->
-    <div id="searchRoute" style="display: none;">
+      <div id="searchRoute" style="display: none;">
+      
+    <!-- 시작 도착 장소 변경 버튼 -->
+      <button type="button" class="btn btn-light shadow-sm" id="btn_change">
+        <img src="Swap horiz.png" width="24" height="24" class="image"/>
+      </button>
       <!-- 출발지검색 -->
-      <div class="input-group mb-3"  style="width: 400px;" id="start_search">
-        <input type="text" class="form-control" placeholder="출발지 검색"  id="searchKeyword_start">
-        <button type="button" class="btn btn-primary" style="width: 100px;" id="btn_select_start">검색</button>
+      <div class="start_dest_show">
+      <div class="start_dest_flex">
+      <div class="input-group mb-3 shadow-sm"  id="start_search">
+        <input type="text" class="form-control" placeholder="출발할 장소를 검색해주세요"  id="searchKeyword_start" style="border:none;">
+        <button type="button" class="btn btn-light" style="width: 50px;border:none;" id="btn_select_start" ><img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/></button>
     </div>
     <!-- 도착지검색 -->
-    <div class="input-group mb-3"  style="width: 400px;" id="dest_search">
-        <input type="text" class="form-control" placeholder="도착지 검색"  id="searchKeyword_dest">
-        <button type="button" class="btn btn-primary" style="width: 100px;" id="btn_select_dest">검색</button>
+    <div class="input-group mb-3 shadow-sm"  id="dest_search">
+        <input type="text" class="form-control" placeholder="도착할 장소를 검색해주세요"  id="searchKeyword_dest" style="border:none;">
+        <button type="button" class="btn btn-light" style="width: 50px; border:none;" id="btn_select_dest"><img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Magnifying%20Glass%20Tilted%20Left.png?raw=true" width="20" height="20" class="image"/></button>
     </div>
-    <!-- 경로표시 -->
-    <div class="input-group mb-3"  style="width: 400px;" id="btn_showway_div">
-        <button type="button" class="btn btn-primary" id="btn_showway">경로표시</button>
-    </div>
-    <!-- 시작 도착 장소 변경 -->
-    <div class="input-group mb-3"  style="width: 400px;" id="change">
-      <button type="button" class="btn btn-primary" id="btn_change">change</button>
+  </div>
+
+  <!-- 경로표시 -->
+        <button type="button" class="btn btn-light shadow-sm" id="btn_showway">경로표시</button>
+      </div>
   </div>
     
-  </div>
+
+
 <!-- 지도 그리기 -->
-  <div id="map" style="position: absolute; top: 7vh; z-index:1">     
+  <div id="map" style="position: absolute; top: 7vh; z-index:-1">     
 <!-- 지도 그리기 -------------------->
-        <script>
-            function getUserLocation() {
-                return new Promise((resolve, reject) => {
-                    if (!navigator.geolocation) {
-                        reject("위치 정보가 지원되지 않습니다.");
-                    } else {
-                        navigator.geolocation.getCurrentPosition(
-                            position => resolve(position),
-                            error => reject(error)
-                        );
-                    }
-                });
-            }
-            
-            var map;
-            
-            async function drawMap() {
-                try {
-                    //잠깐 테스트 위해서 현재위치 확인 alert 주석처리 !!
-                    const position = await getUserLocation();
-                    console.log(position);
-                    //alert(`위도: ${position.coords.latitude}, 경도: ${position.coords.longitude}`);
-                    map = new Tmapv2.Map("map", {
-                        center: new Tmapv2.LatLng(position.coords.latitude, position.coords.longitude),      //맵생성, 현재 위치의 위도와 경도를 center로 지정
-                        width: "100%",
-                        height: "93vh",
-                        zoom: 12,
-                    });
-                } catch (error) {
-                    console.error(error);
-                    // 위치 정보를 얻을 수 없을 때 #map 영역에 에러 메시지 표시
-                    //document.getElementById('map').innerHTML = `<p style="text-align: center; padding-top: 30px;">${error} 위치 정보를 얻을 수 없습니다. </p>`;
-            
-                    // 위치 정보를 얻을 수 없을 때 부경대를 센터로 지정
-                    map = new Tmapv2.Map("map", {
-                        center: new Tmapv2.LatLng(35.133238684709, 129.10144001966),         //부경대 위도경도
-                        width: "100%",
-                        height: "93vh",
-                        zoom: 10,
-                    });
-                }
-            }
-        </script>
+      <script>
+          function getUserLocation() {
+              return new Promise((resolve, reject) => {
+                  if (!navigator.geolocation) {
+                      reject("위치 정보가 지원되지 않습니다.");
+                  } else {
+                      navigator.geolocation.getCurrentPosition(
+                          position => resolve(position),
+                          error => reject(error)
+                      );
+                  }
+              });
+          }
+          
+          var map;
+          
+          async function drawMap() {
+              try {
+                  //잠깐 테스트 위해서 현재위치 확인 alert 주석처리 !!
+                  const position = await getUserLocation();
+                  console.log(position);
+                  //alert(`위도: ${position.coords.latitude}, 경도: ${position.coords.longitude}`);
+                  map = new Tmapv2.Map("map", {
+                      center: new Tmapv2.LatLng(position.coords.latitude, position.coords.longitude),      //맵생성, 현재 위치의 위도와 경도를 center로 지정
+                      width: "100%",
+                      height: "93vh",
+                      zoom: 12,
+                  });
+              } catch (error) {
+                  console.error(error);
+                  // 위치 정보를 얻을 수 없을 때 #map 영역에 에러 메시지 표시
+                  //document.getElementById('map').innerHTML = `<p style="text-align: center; padding-top: 30px;">${error} 위치 정보를 얻을 수 없습니다. </p>`;
+          
+                  // 위치 정보를 얻을 수 없을 때 부경대를 센터로 지정
+                  map = new Tmapv2.Map("map", {
+                      center: new Tmapv2.LatLng(35.133238684709, 129.10144001966),         //부경대 위도경도
+                      width: "100%",
+                      height: "93vh",
+                      zoom: 10,
+                  });
+              }
+          }
+      </script>
   </div>
 
 
     <!-- 하단 통제정보 버튼 -->
-    <div class="RAI_btn" style="z-index:2">
+    <div class="RAI_btn" style="z-index:1000">
     <button type="button" class="btn btn-dark shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 98%;"> <!-- 버튼크기 가로 98% -->
         <div class="flex-container">
         <img src="https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/Hammer%20And%20Wrench.png?raw=true" width="20" height="20" class="image"/>
@@ -233,7 +237,7 @@
         </div>
 
 
-
+        <script src="frRoute.js"></script>
         <script src="frAccident.js"></script>
         <script src="searchPlace.js"></script>
         <script src="RAI.js"></script>

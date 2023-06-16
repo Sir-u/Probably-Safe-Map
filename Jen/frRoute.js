@@ -178,7 +178,7 @@ function drawRoute(){
 let isRouteVisible = false;
 function toggleRoute() {
     // 마커 표시 여부에 따라 마커 표시/삭제 실행
-    if (!isMarkersVisible) {
+    if (isMarkersVisible) {
       console.log("마커를 표시합니다.");
       resettingMap();
      isRouteVisible = true;

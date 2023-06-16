@@ -200,12 +200,9 @@
 }
 .RAI_btn button {
     border-radius: 10px; /*둥글게*/
-}
-
-/* 하단 통제정보 버튼 ---------------------------------------------*/
-.RAI_btn button {
     padding: 12px;
 }
+
 .RAI_btn .flex-container{
     align-items: center;
     font-size: 18px;
@@ -237,49 +234,121 @@
   }
 
 /* 장소 검색창----------------- */
-
-#searchSection_POINT{
+/* 검색창 통합 */
+#searchSection_POINT, #searchRoute{
     position: fixed;
-    z-index: 3;
+    z-index: 5;
     top: 110px;
-    margin:16px;
-    width: 100%;
+    padding:16px;
+    display:flex;
+}
+#searchSection_POINT{
+    flex-direction: column;
 }
 #point_search{
     height: 48px;
+    width: 25rem;
 }
 
 #btn_place_to_route{
+    top: 8px;
     font-size: 14px;
-    background-color: #efa83f;
+    font-weight: 700;
+    width: 130px;
+    margin-top: 8px;
+    color:#5f4920;
+    background-color: #f5b34f;
+}
+
+/* 경로 검색창----------------- */
+#start_search{ 
+    height: 48px;
+    width:25rem;
+}
+#dest_search{
+    position:relative;
+    top: -12px;
+    height: 48px;
+    width:25rem;
+}
+
+.start_dest_flex{
+    display: flex;
+    flex-direction: column;
 }
 
 
+#btn_change{
+    height: 90px;
+    width: 40px;
+    padding: 0px;
+    margin-right: 6px;
+    margin-top: 4px;
+}
+#btn_showway{
+    position: relative;
+    top:-18px;
+    font-size:14px;
+    font-weight: 700;
+    color:#5f4920;
+    background-color: #f5b34f;
+    border:none;
+}
 
 
 
 /* 검색결과---------------------------------------------------------*/
     #result_div {        
-    position: absolute; 
+    position: fixed; 
     overflow: auto;
     background-color: rgba(255,255,255,0.7); /* 백그라운드 컬러 흰색, 투명도 0.7 */
-    z-index: 1000;
     }
     
-    /* Medium devices (tablets, less than 992px) */
+    #result_div .title {
+        font-weight: 700;
+        padding: 16px;
+        font-size: 18px;
+        background:#ffffff;
+        border-bottom: solid 1px #d6d6d6;
+    }
+
+    .place-items {
+        cursor : pointer;
+        padding: 8px;
+        border-bottom: solid 1px #d6d6d6;
+    }
+    
+    /* 작은 화면: 992px 이하*/
     @media (max-width: 992px) { 
     #result_div {
-    bottom: 0; 
-    width: 100%; 
-    height: 30%; 
+    bottom: 0px; 
+    width: 97%; 
+    height: 22%; 
+    bottom: 74px;
+    margin-left: 10px;
+    border-radius: 10px;
     }
+
+    #start_search{ 
+        width:100%;
     }
-    /* Large devices (desktops, 992px and up) */
+    #dest_search{
+        width:100%;
+    }
+
+    #point_search{
+        width:100%;
+    }
+
+    }
+    /* 큰 화면: 992px이상*/
     @media (min-width: 992px) { 
     #result_div {
     top: 0;
     right: 0; 
     width: 20%; 
-    height: 100%; 
+    top: 56px;
+    bottom: 80px;
+    border-radius: 10px;
     }
     }
