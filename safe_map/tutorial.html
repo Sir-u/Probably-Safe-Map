@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #tutorial {
+            text-align: center;
+        }
+
+        #tutorial-image {
+            width: 95vw;
+            height: 95vh;
+            cursor: pointer;
+        }
+
+        #close-button, #next-button, #prev-button {
+            position: fixed;
+            top: 30px;
+        }
+        
+    </style>
+    <script>
+        let imageIndex = 1;
+
+        function nextImage() {
+            if(imageIndex < 6){
+            imageIndex++;
+            let imageElement = document.getElementById('tutorial-image');
+            imageElement.src = 'tutorial-images/image' + imageIndex + '.png';
+            }
+        }
+
+        function prevImage() {
+            if(imageIndex > 1){
+            imageIndex--;
+            let imageElement = document.getElementById('tutorial-image');
+            imageElement.src = 'tutorial-images/image' + imageIndex + '.png';
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="tutorial">
+        <img id="tutorial-image" src="tutorial-images/image1.png" />
+        
+        <button id="prev-button" onclick="prevImage()" style="right: 30vh;">이전</button>
+        <button id="next-button" onclick="nextImage()" style="right: 25vh;">다음</button>
+        <button id="close-button" onclick="window.location.href='main.html'" style="right: 20vh;">닫기</button>
+    </div>
+</body>
+
+</html>
