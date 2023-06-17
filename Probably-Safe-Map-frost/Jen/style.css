@@ -1,0 +1,354 @@
+#map {
+    /* top:5vh;
+    width: 100%;
+    height: 95vh; */
+    /*뷰포트 높이 95%*/
+}
+
+/* 웹폰트 사용 */
+@font-face {
+    font-family: 'NIXGONM-Vb';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONM-Vb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} 
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 안전할지도 타이틀 --------------------------------------- */
+#title_safe {
+    color: #efa83f;
+    font-family: 'Cute Font', cursive;
+    font-weight: bold;
+    font-size: 34px;
+    letter-spacing: 1px;
+    margin-right: 1px;
+}
+
+#title_map {
+    color: #74d347;
+    font-family: 'Cute Font', cursive;
+    font-weight: bold;
+    font-size: 34px;
+    letter-spacing: 1px;
+}
+
+
+/* 헤더 ----------------------------------------------*/        
+.navbar {
+    width: 100%;
+    height: 56px;
+    /* background-color:#333333 !important; */
+  }
+
+
+/* 버튼들 div ---------------------------------------------*/
+
+
+.btns {
+    
+    position: fixed;  
+    z-index: 1000;
+    top: 72px;
+
+}
+
+
+/* 장소검색 버튼 ------------------------------------------------*/
+.findPlace_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    left: 0.938em;
+}
+
+.findPlace_btn .flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.findPlace_btn button {
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; 버튼색상 */
+  }
+
+.findPlace_btn button p{
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+}
+
+  .findPlace_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+  }
+
+
+/* 길찾기 버튼 --------------------------------------------*/
+  .findRoute_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    left: 101px;
+}
+
+.findRoute_btn .flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.findRoute_btn button {
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
+  }
+
+.findRoute_btn button p{
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+    /* transform: skew(-0.1deg); /*글자 깨짐이 발생할 때 사용*/
+}
+
+  .findRoute_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+}
+
+/* 결빙버튼 --------------------------------------------------*/
+.frost_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    left: 200px;
+}
+
+.frost_btn .flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.frost_btn button {
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
+  }
+
+.changeColor_btn {
+    background-color: #ffffff;
+    color: #191919;
+}
+
+.frost_btn button p{
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+    /* transform: skew(-0.1deg); /*글자 깨짐이 발생할 때 사용*/
+}
+
+  .frost_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+}
+
+/* 침수버튼 ---------------------------------------------*/
+#floodingBtn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    left: 286px;
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
+}
+
+.flooding_btn .flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.flooding_btn button {
+    font-size: 14px;
+    border-radius: 10px; /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
+  }
+
+.flooding_btn button p{
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+    /* transform: skew(-0.1deg); /*글자 깨짐이 발생할 때 사용*/
+}
+
+  .flooding_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+}
+
+
+
+/* 하단 통제정보 버튼 ------------------------------------------------*/
+.RAI_btn {
+    position: fixed;   /* 지도 위에 버튼을 그릴 수 있도록 fixed */
+    bottom: 1.0em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.RAI_btn button {
+    border-radius: 10px; /*둥글게*/
+    padding: 12px;
+}
+
+.RAI_btn .flex-container{
+    align-items: center;
+    font-size: 18px;
+    font-weight: 400;
+}
+.RAI_btn #rai_cnt {
+    font-weight: 700;
+    color: #efa83f;
+}
+.RAI_btn button .image {
+    margin-right: 4px; /*이미지와 글자 사이 간격 조정*/
+}
+
+
+.search_box {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  
+  #searchInput {
+    width: 200px;
+    padding: 5px;
+    margin-right: 5px;
+  }
+  
+  #searchBtn {
+    padding: 5px 10px;
+  }
+
+/* 장소 검색창----------------- */
+/* 검색창 통합 */
+#searchSection_POINT, #searchRoute{
+    position: fixed;
+    z-index: 5;
+    top: 110px;
+    padding:16px;
+    display:flex;
+}
+#searchSection_POINT{
+    flex-direction: column;
+}
+#point_search{
+    height: 48px;
+    width: 25rem;
+}
+
+#btn_place_to_route{
+    top: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    width: 130px;
+    margin-top: 8px;
+    color:#5f4920;
+    background-color: #f5b34f;
+}
+
+/* 경로 검색창----------------- */
+#start_search{ 
+    height: 48px;
+    width:25rem;
+}
+#dest_search{
+    position:relative;
+    top: -12px;
+    height: 48px;
+    width:25rem;
+}
+
+.start_dest_flex{
+    display: flex;
+    flex-direction: column;
+}
+
+
+#btn_change{
+    height: 90px;
+    width: 40px;
+    padding: 0px;
+    margin-right: 6px;
+    margin-top: 4px;
+}
+#btn_showway{
+    position: relative;
+    top:-18px;
+    font-size:14px;
+    font-weight: 700;
+    color:#5f4920;
+    background-color: #f5b34f;
+    border:none;
+}
+
+
+
+/* 검색결과---------------------------------------------------------*/
+    #result_div {        
+    position: fixed; 
+    overflow: auto;
+    background-color: rgba(255,255,255,0.7); /* 백그라운드 컬러 흰색, 투명도 0.7 */
+    }
+    
+    #result_div .title {
+        font-weight: 700;
+        padding: 16px;
+        font-size: 18px;
+        background:#ffffff;
+        border-bottom: solid 1px #d6d6d6;
+    }
+
+    .place-items {
+        cursor : pointer;
+        padding: 8px;
+        border-bottom: solid 1px #d6d6d6;
+    }
+    
+    /* 작은 화면: 992px 이하*/
+    @media (max-width: 992px) { 
+    #result_div {
+    bottom: 0px; 
+    width: 97%; 
+    height: 22%; 
+    bottom: 74px;
+    margin-left: 10px;
+    border-radius: 10px;
+    }
+
+    #start_search{ 
+        width:100%;
+    }
+    #dest_search{
+        width:100%;
+    }
+
+    #point_search{
+        width:100%;
+    }
+
+    }
+    /* 큰 화면: 992px이상*/
+    @media (min-width: 992px) { 
+    #result_div {
+    top: 0;
+    right: 0; 
+    width: 20%; 
+    top: 56px;
+    bottom: 80px;
+    border-radius: 10px;
+    }
+    }
