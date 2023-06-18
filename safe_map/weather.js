@@ -31,7 +31,7 @@ var formattedToday = formatDate();
 var currentTime = getCurrentTime();
 
 
-async function weatherInfo() {
+
    var xhr = new XMLHttpRequest();
    var url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst'; /*URL*/
    var queryParams = '?' + encodeURIComponent('serviceKey') + '=' + 'zLzLsz6TwuV3XckkNxeibskoB4TQWO%2B4E0Ob3QC4SLnFpBdhF%2BhH9BEm0%2FdPZPrCYKbtcj12ixLGeX24tWYSig%3D%3D'; /*Service Key*/
@@ -68,21 +68,21 @@ async function weatherInfo() {
             humidityText.textContent = reh + '%';
          } else if (pty == 1 || pty == 2 || pty == 5 || pty == 6) {
             // 비가 오거나 소나기가 있을 때
-            weatherImage.src = 'rain.png';
+            weatherImage.src = './weather/rain.png';
             weatherImage.alt = '비가 오는 날씨';
             temperatureText.textContent = t1h + '°C';
             humidityText.textContent = reh + '%';
             rainfallText.textContent = '강우량 : ' + rn1 + 'mm';
          }else if (pty == 4) {
                // 비가 오거나 소나기가 있을 때
-               weatherImage.src = 'blustery.png';
+               weatherImage.src = './weather/blustery.png';
                weatherImage.alt = '소나기가 오는 날씨';
                temperatureText.textContent = t1h + '°C';
                humidityText.textContent = reh + '%';
                rainfallText.textContent = '강우량 : ' + rn1 + 'mm';
          } else if (pty == 3 || pty == 7) {
             // 눈이 오는 날씨
-            weatherImage.src = 'snowing.png';
+            weatherImage.src = './weather/snowing.png';
             weatherImage.alt = '눈이 오는 날씨';
             temperatureText.textContent = t1h + '°C';
             humidityText.textContent = reh + '%';
@@ -91,4 +91,3 @@ async function weatherInfo() {
    };
 
    xhr.send();
-}
