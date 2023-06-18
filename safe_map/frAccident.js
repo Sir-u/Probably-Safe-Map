@@ -82,7 +82,7 @@ function removeMarkers() {
   markers = [];
 }
 
-function toggleMarkers() {
+function toggleFrMarkers() {
   // 마커 표시 여부에 따라 마커 표시/삭제 실행
   if (isMarkersVisible) {
     console.log("마커를 표시합니다.");
@@ -107,6 +107,6 @@ document.addEventListener("DOMContentLoaded", function () { //domcontentloaded�
   const frozenMapCheckbox = document.getElementById('frostBtn');
 
   // 체크박스의 상태 변경 이벤트 리스너를 추가합니다.
-  frozenMapCheckbox.addEventListener('click', toggleMarkers);
+  frozenMapCheckbox.addEventListener('click', toggleFrMarkers);
 });
 
