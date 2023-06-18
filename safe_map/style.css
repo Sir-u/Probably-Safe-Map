@@ -42,11 +42,27 @@
     letter-spacing: 1px;
 }
 
-.text {
+/* 날씨 */
+#weather {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  #weather-image {
+    display: flex;
+    width: 30px;
+    height: 5cap;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .text {
     display: inline-block;
     margin: 5px 0;
     color: #d6d6d6;
-}
+  }
 
 /* 헤더 ----------------------------------------------*/
 .navbar {
