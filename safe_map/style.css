@@ -186,15 +186,9 @@
 }
 
 /* 침수버튼 ---------------------------------------------*/
-#floodingBtn {
+.flooding_btn {
     position: fixed;
-    /* 지도 위에 버튼을 그릴 수 있도록 fixed */
     left: 286px;
-    font-size: 14px;
-    border-radius: 10px;
-    /*둥글게*/
-    padding: 8px 12px;
-    /* background-color: #333333; */
 }
 
 .flooding_btn .flex-container {
@@ -222,6 +216,37 @@
     /*이미지와 글자 사이 간격 조정*/
 }
 
+
+/* 새로고침 버튼 ---------------------------------------------*/
+.reload {
+    position: fixed;
+    left: 372px;
+}
+
+.reload .flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.reload button {
+    font-size: 14px;
+    border-radius: 10px;
+    /*둥글게*/
+    padding: 8px 12px;
+    /* background-color: #333333; */
+}
+
+.reload button p {
+    margin: 0px;
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.2px;
+    /* transform: skew(-0.1deg); /*글자 깨짐이 발생할 때 사용*/
+}
+
+.reload button .image {
+    margin-right: 4px;
+    /*이미지와 글자 사이 간격 조정*/
+}
 
 
 /* 하단 통제정보 버튼 ------------------------------------------------*/

@@ -1,7 +1,7 @@
 var today = new Date();
 var polygonCoordinates;
 var isFloodingMarkersVisible = true;
-var markerPolygons = [];
+var polygons = [];
 
 function formatDate() {
    var year = today.getFullYear();
@@ -72,10 +72,10 @@ function floodPolygon() {
          var features = response.features;
 
          // 이전 폴리곤 제거
-         for (var k = 0; k < markerPolygons.length; k++) {
-            markerPolygons[k].setMap(null);
+         for (var k = 0; k < polygons.length; k++) {
+            polygons[k].setMap(null);
          }
-         markerPolygons = []; // 배열 초기화
+         polygons = []; // 배열 초기화
 
          for (var i = 0; i < features.length; i++) {
             var coordinates = features[i].geometry.coordinates;
@@ -96,7 +96,7 @@ function floodPolygon() {
                map: map
             });
 
-            markerPolygons.push(polygon); // 폴리곤 객체를 배열에 저장합니다.
+            polygons.push(polygon); // 폴리곤 객체를 배열에 저장합니다.
          }
       }
    };
@@ -113,10 +113,10 @@ function toggleMarkers() {
    } else {
       console.log("마커를 삭제합니다.");
       // 모든 폴리곤 제거
-      for (var k = 0; k < markerPolygons.length; k++) {
-         markerPolygons[k].setMap(null);
+      for (var k = 0; k < polygons.length; k++) {
+         polygons[k].setMap(null);
       }
-      markerPolygons = []; // 배열 초기화
+      polygons = []; // 배열 초기화
       isFloodingMarkersVisible = true;
    }
 }

@@ -105,13 +105,7 @@ function showPolygon() {
 
 document.getElementById("floodingBtn").addEventListener("click", showPolygon);
 
-//  // DOM이 완전히 로드된 후에 요소에 접근할 수 있도록 대기합니다.
+// // DOM이 완전히 로드된 후에 요소에 접근할 수 있도록 대기합니다.
 // document.addEventListener("DOMContentLoaded", function () {
-//     // 체크박스 요소에 대한 참조를 가져옵니다.
-//     const floodBtn = document.getElementById("floodingBtn");
- 
-//     // 버튼 클릭 이벤트 리스너를 등록합니다.
-//     floodBtn.addEventListener("click", showPolygon);
-//     //floodingBtn.addEventListener("click", toggleFloodingButtonColor);
-//  });
-// //document.getElementById("showRectangleButton").addEventListener("click", showPolygon);
+//     document.getElementById("floodingBtn").addEventListener("click", showPolygon);
+// });
