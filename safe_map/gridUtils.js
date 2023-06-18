@@ -1,4 +1,6 @@
+// gridUtils.js
 const gridData = require('./grid_data.json');
+
 
 function findClosestGrid(latitude, longitude) {
   // 입력한 위도와 경도와의 거리를 계산하는 함수를 정의합니다.
@@ -24,17 +26,21 @@ function findClosestGrid(latitude, longitude) {
     }
   }
 
-  // 가장 가까운 초(1/100) 값의 행을 찾아 격자 X 좌표와 격자 Y 좌표를 출력합니다.
+  // 가장 가까운 초(1/100) 값의 행을 찾아 격자 X 좌표와 격자 Y 좌표를 반환합니다.
   const closestRow = gridData.find(
     (row) =>
       row.Latitude === closestLatitude && row.Longitude === closestLongitude
   );
-  const gridX = closestRow.Grid_X;
-  const gridY = closestRow.Grid_Y;
-  console.log(`격자 X 좌표: ${gridX}, 격자 Y 좌표: ${gridY}`);
+
+  if (closestRow) {
+    const gridX = closestRow.Grid_X;
+    const gridY = closestRow.Grid_Y;
+    return { gridX, gridY };
+  } else {
+    return null;
+  }
 }
 
-// 사용 예시
-const latitude = 37.123456; // 입력한 위도 값
-const longitude = 127.987654; // 입력한 경도 값
-findClosestGrid(latitude, longitude);
+module.exports = {
+  findClosestGrid
+};
