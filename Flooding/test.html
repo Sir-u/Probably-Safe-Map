@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>침수 정보 시스템</title>
+    <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=tpNuEruLIF71bSnC42azK4ddpJ6O9wd86xEVwmCQ"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        #map_div {
+            width: 890px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        
+        #button {
+            display: block;
+            width: 100px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            margin: 20px auto;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        
+        #button:hover {
+            background-color: #555;
+        }
+    </style>
+    <script type="text/javascript">
+        function initTmap() {
+            var map = new Tmapv2.Map("map_div", {
+                center: new Tmapv2.LatLng(37.566481622437934, 126.98502302169841), // 지도 초기 좌표
+                // width: "890px",
+                // height: "400px",
+                zoom: 15
+            });
+        }
+    </script>
+</head>
+<body onload="initTmap()">
+
+    <div id="header">
+        <h3>침수 정보 시스템</h3>
+    </div>
+
+    <div id="map_div"></div>
+
+    <a href="#" id="button">더보기</a>
+
+</body>
+</html>

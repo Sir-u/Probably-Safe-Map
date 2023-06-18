@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <title>상습 침수 구역 지도</title>
+   <script src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=tpNuEruLIF71bSnC42azK4ddpJ6O9wd86xEVwmCQ"></script>
+   <style>
+      #map {
+         width: 100%;
+         height: 500px;
+      }
+   </style>
+</head>
+<body>
+   <h1>상습 침수 구역 지도</h1>
+   <div id="map"></div>
+
+   <script>
+      var map = new Tmapv2.Map("map", {
+         center: new Tmapv2.LatLng(37.456135, 126.705620),
+         width: "100%",
+         height: "500px",
+         zoom: 12
+      });
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://cors-anywhere.herokuapp.com/https://smart.incheon.go.kr/server/rest/services/Hosted/상습_침수구역/FeatureServer/194/query?outFields=*&where=1%3D1&f=geojson");
+      //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      xhr.onreadystatechange = function () {  
+         if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var features = response.features;
+            console.log("features");
+            console.log(features);
+
+            for (var i = 0; i < features.length; i++) {
+               var coordinates = features[i].geometry.coordinates;
+               var polygonCoordinates = [];
+               console.log("coordinates");
+               console.log(coordinates);
+               console.log("coordinates[0][0]");
+               console.log(coordinates[0][0]);
+               for (var j = 0; j < coordinates[0].length; j++) {
+                  var lng = coordinates[0][j][0];
+                  console.log("lng");
+                  console.log(lng);
+                  var lat = coordinates[0][j][1];
+                  polygonCoordinates.push(new Tmapv2.LatLng(lat, lng));
+               }
+               console.log("polygonCoordinates");
+               console.log(polygonCoordinates);
+
+               var polygon = new Tmapv2.Polygon({
+                  paths: polygonCoordinates,
+                  strokeColor: "#FF0000",
+                  strokeWeight: 2,
+                  fillColor: "#FF0000",
+                  fillOpacity: 0.3,
+                  map: map
+               });
+            }
+         }
+      };
+      xhr.send();
+   </script>
+</body>
+</html>

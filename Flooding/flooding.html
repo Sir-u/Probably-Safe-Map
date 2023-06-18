@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <title>simpleMap</title>
+   <script
+      src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=tpNuEruLIF71bSnC42azK4ddpJ6O9wd86xEVwmCQ"></script>
+   <style>
+      body {
+         margin: 0;
+         padding: 0;
+      }
+
+      #map {
+         width: 100%;
+         height: 95vh;
+      }
+   </style>
+</head>
+
+<body>
+   <h1>simpleMap</h1>
+   <div id="map"></div>
+   <button id="showRectangleButton">사각형 표시</button>
+   <script src="drawMap.js"></script>
+   <script src="flood.js"></script>
+   <script>
+      weatherResponse();
+      drawMap();
+   </script>
+
+</body>
+
+</html>
