@@ -62,7 +62,7 @@ async function weatherInfo() {
          rn1 = 44;
          if (pty == 0) {
             // 날씨가 맑을 때
-            weatherImage.src = 'sun.png';
+            weatherImage.src = './weather/sun.png';
             weatherImage.alt = '맑은 날씨';
             temperatureText.textContent = t1h + '°C';
             humidityText.textContent = reh + '%';

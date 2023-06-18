@@ -42,6 +42,7 @@ function createPolygon(name, paths, fillColor) {
 function addPolygon(name, paths, fillColor) {
     if (!(name in markerPolygons)) {
         markerPolygons[name] = createPolygon(name, paths, fillColor);
+        console.log(markerPolygons);
     }
 }
 
@@ -93,6 +94,7 @@ function showPolygon() {
         polyVisible = true;
     }
     else {
+        console.log(markerPolygons);
         for (var name in markerPolygons) {
             removePolygon(name);
         }
@@ -100,4 +102,10 @@ function showPolygon() {
     }
 }
 
-document.getElementById("showRectangleButton").addEventListener("click", showPolygon);
+
+document.getElementById("floodingBtn").addEventListener("click", showPolygon);
+
+// // DOM이 완전히 로드된 후에 요소에 접근할 수 있도록 대기합니다.
+// document.addEventListener("DOMContentLoaded", function () {
+//     document.getElementById("floodingBtn").addEventListener("click", showPolygon);
+// });

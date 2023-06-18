@@ -32,7 +32,7 @@ let latlon = [];
 let markerCluster;
 
 var icons = [
-  {imageUrl: "https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/%ED%88%AC%EB%AA%85.png?raw=true", size: new Tmapv2.base.Size(35,35), fontSize: "0px"}];
+  { imageUrl: "https://github.com/Sir-u/Probably-Safe-Map/blob/frost/Jen/icons/%ED%88%AC%EB%AA%85.png?raw=true", size: new Tmapv2.base.Size(35, 35), fontSize: "0px" }];
 
 function accidentMarker() {
   // 이전에 생성된 마커들 제거
@@ -52,7 +52,7 @@ function accidentMarker() {
           var lon = frozen[j]["lo_crd"];
           var lonlat = new Tmapv2.LatLng(lat, lon);
           var title = frozen[j]["spot_nm"];
-          
+
           var marker = new Tmapv2.Marker({
             position: lonlat,
             map: map,
@@ -66,15 +66,13 @@ function accidentMarker() {
         markerCluster = new Tmapv2.extension.MarkerCluster({
           markers: markers1,
           map: map,
-          maxClusterZoom:10, // 클러스터 적용 레벨 설정 
-          icon:icons,
+          maxClusterZoom: 10, // 클러스터 적용 레벨 설정 
+          icon: icons,
         });
         markerCluster.setIcons(icons)
       });
   }
 }
-
-
 
 function removeMarkers() {
   // 이전에 생성된 모든 마커 제거
@@ -96,16 +94,15 @@ function toggleMarkers() {
     removeMarkers();
     isMarkersVisible = true;
   }
-  }
-  
+}
 
-function toggleButtonColor() {
+function toggleFrostButtonColor() {
   var button = document.getElementById("frostBtn");
   button.classList.toggle("changeColor_btn");
 }
 
 // DOM이 완전히 로드된 후에 요소에 접근할 수 있도록 대기합니다.
-document.addEventListener("DOMContentLoaded", function() { //domcontentloaded안하면 안됨..
+document.addEventListener("DOMContentLoaded", function () { //domcontentloaded안하면 안됨..
   // 체크박스 요소에 대한 참조를 가져옵니다.
   const frozenMapCheckbox = document.getElementById('frostBtn');
 
