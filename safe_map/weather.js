@@ -57,32 +57,29 @@ xhr.onreadystatechange = function () {
       var humidityText = document.getElementById('humidity-text');
       var rainfallText = document.getElementById('rainfall-text');
 
-
-      pty = 0;
-      rn1 = 44;
       if (pty == 0) {
          // 날씨가 맑을 때
-         weatherImage.src = './weather/sun.png';
+         weatherImage.src = 'https://github.com/Sir-u/Probably-Safe-Map/blob/main/safe_map/weather/sun.png';
          weatherImage.alt = '맑은 날씨';
          temperatureText.textContent = t1h + '°C';
          humidityText.textContent = reh + '%';
       } else if (pty == 1 || pty == 2 || pty == 5 || pty == 6) {
-         // 비가 오거나 소나기가 있을 때
-         weatherImage.src = './weather/rain.png';
+         // 비가 올 때
+         weatherImage.src = 'https://github.com/Sir-u/Probably-Safe-Map/blob/main/safe_map/weather/rain.png';
          weatherImage.alt = '비가 오는 날씨';
          temperatureText.textContent = t1h + '°C';
          humidityText.textContent = reh + '%';
          rainfallText.textContent = rn1 + 'mm';
       } else if (pty == 4) {
-         // 비가 오거나 소나기가 있을 때
-         weatherImage.src = './weather/blustery.png';
+         // 소나기가 올 때
+         weatherImage.src = 'https://github.com/Sir-u/Probably-Safe-Map/blob/main/safe_map/weather/blustery.png';
          weatherImage.alt = '소나기가 오는 날씨';
          temperatureText.textContent = t1h + '°C';
          humidityText.textContent = reh + '%';
          rainfallText.textContent = rn1 + 'mm';
       } else if (pty == 3 || pty == 7) {
          // 눈이 오는 날씨
-         weatherImage.src = './weather/snowing.png';
+         weatherImage.src = 'https://github.com/Sir-u/Probably-Safe-Map/blob/main/safe_map/weather/snowing.png';
          weatherImage.alt = '눈이 오는 날씨';
          temperatureText.textContent = t1h + '°C';
          humidityText.textContent = reh + '%';

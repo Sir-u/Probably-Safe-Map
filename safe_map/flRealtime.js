@@ -6,11 +6,9 @@ var sttusNm = [];
 
 function setPolygon(){
     for (var i = 0; i < item.length; i++) {
-        item[i]['sttus'] = 60;
-
-        if (item[i]['sttus'] >= 50) {
+        //item[i]['sttus'] = 60; // 침수가 60mm 이상되었다고 가정
+        if (item[i]['sttus'] >= 50 && item[i]['sttusNm'] != "이상") {
             siteNames.push(item[i]['siteName']); // 변경된 변수 이름
-            console.log(siteNames);
         }
         sttusNm.push(item[i]['sttusNm']);
     }
@@ -22,6 +20,7 @@ async function getPolygon() {
         .then((res) => res.json())
         .then((resJson) => {
             item = resJson.getWaterImrsnInfo.body.items.item;
+            console.log(item);
             setPolygon();
 
         })
