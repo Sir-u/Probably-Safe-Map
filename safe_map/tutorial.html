@@ -2,39 +2,50 @@
 <html>
 
 <head>
+    <!--부트스트랩 사용-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- 구글폰트 갖고오기  -->
+    <link href="https://fonts.googleapis.com/css2?family=Cute+Font&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap' rel="stylesheet">
     <style>
+        
         #tutorial {
             text-align: center;
         }
 
         #tutorial-image {
-            width: 95vw;
-            height: 95vh;
-            cursor: pointer;
+            width: 100vw;
+            height: 100vh;
         }
 
-        #close-button, #next-button, #prev-button {
+        #btns{
             position: fixed;
+            right: 50px;
             top: 30px;
         }
-        
     </style>
+
+
     <script>
         let imageIndex = 1;
 
         function nextImage() {
-            if(imageIndex < 6){
-            imageIndex++;
-            let imageElement = document.getElementById('tutorial-image');
-            imageElement.src = 'tutorial-images/image' + imageIndex + '.png';
+            if (imageIndex < 6) {
+                imageIndex++;
+                let imageElement = document.getElementById('tutorial-image');
+                imageElement.src = 'tutorial-images/image' + imageIndex + '.png';
             }
         }
 
         function prevImage() {
-            if(imageIndex > 1){
-            imageIndex--;
-            let imageElement = document.getElementById('tutorial-image');
-            imageElement.src = 'tutorial-images/image' + imageIndex + '.png';
+            if (imageIndex > 1) {
+                imageIndex--;
+                let imageElement = document.getElementById('tutorial-image');
+                imageElement.src = 'tutorial-images/image' + imageIndex + '.png';
             }
         }
 
@@ -44,11 +55,19 @@
 <body>
     <div id="tutorial">
         <img id="tutorial-image" src="tutorial-images/image1.png" />
-        
-        <button id="prev-button" onclick="prevImage()" style="right: 30vh;">이전</button>
-        <button id="next-button" onclick="nextImage()" style="right: 25vh;">다음</button>
-        <button id="close-button" onclick="window.location.href='main.html'" style="right: 20vh;">닫기</button>
+
+        <div id="btns" style="background-color: rgba(255,255,255,0.0);">
+        <button class="btn btn-light" id="prev-button" onclick="prevImage()" style="margin-right: 5px;">이전</button>
+        <button class="btn btn-light" id="next-button" onclick="nextImage()" style="margin-right: 5px;">다음</button>
+        <button class="btn btn-light" id="close-button" onclick="window.location.href='main.html'">닫기</button>
+        </div>
     </div>
+
+
+    <!-- 부트스트랩 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
