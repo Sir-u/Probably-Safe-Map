@@ -25,7 +25,7 @@
         #btns{
             position: fixed;
             right: 50px;
-            top: 30px;
+            top: 40px;
         }
     </style>
 
@@ -34,7 +34,7 @@
         let imageIndex = 1;
 
         function nextImage() {
-            if (imageIndex < 6) {
+            if (imageIndex < 7) {
                 imageIndex++;
                 let imageElement = document.getElementById('tutorial-image');
                 imageElement.src = 'tutorial-images/image' + imageIndex + '.png';

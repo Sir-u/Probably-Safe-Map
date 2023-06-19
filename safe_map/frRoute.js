@@ -176,18 +176,18 @@ function drawRoute() {
         });
 }
 
-let isRouteVisible = true; // 표시 여부를 나타내는 변수
+let isRouteVisible = false; // 표시 여부를 나타내는 변수
 
 function toggleRoute() {
     // 마커 표시 여부에 따라 마커 표시/삭제 실행
-    if (isRouteVisible) {
+    if (!isRouteVisible) {
         console.log("루트를 표시합니다.");
         drawRoute();
-        isRouteVisible = false;
+        isRouteVisible = true;
     } else {
         console.log("루트를 삭제합니다.");
         resettingMap();
-        isRouteVisible = true;
+        isRouteVisible = false;
     }
 }
 
