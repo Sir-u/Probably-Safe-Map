@@ -27,7 +27,7 @@ const gugun = [
 
 let markers = []; // 마커들을 담을 배열
 let markers1 = [];
-let isMarkersVisible = true; // 마커 표시 여부를 나타내는 변수
+let isMarkersVisible = false; // 마커 표시 여부를 나타내는 변수
 let latlon = [];
 let markerCluster;
 
@@ -84,15 +84,15 @@ function removeMarkers() {
 
 function toggleFrMarkers() {
   // 마커 표시 여부에 따라 마커 표시/삭제 실행
-  if (isMarkersVisible) {
+  if (!isMarkersVisible) {
     console.log("마커를 표시합니다.");
     accidentMarker();
-    isMarkersVisible = false;
+    isMarkersVisible = true;
     console.log(map.getZoom());
   } else {
     console.log("마커를 삭제합니다.");
     removeMarkers();
-    isMarkersVisible = true;
+    isMarkersVisible = false;
   }
 }
 

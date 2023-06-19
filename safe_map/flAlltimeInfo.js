@@ -1,6 +1,6 @@
 var today = new Date();
 var polygonCoordinates;
-var isFloodingMarkersVisible = true;
+var isFloodingMarkersVisible = false;
 var polygons = [];
 
 function formatDate() {
@@ -104,10 +104,10 @@ function floodPolygon() {
 
 function toggleFlMarkers() {
    // 마커 표시 여부에 따라 마커 표시/삭제 실행
-   if (isFloodingMarkersVisible) {
+   if (!isFloodingMarkersVisible) {
       console.log("마커를 표시합니다.");
       weatherResponse();
-      isFloodingMarkersVisible = false;
+      isFloodingMarkersVisible = true;
       console.log(map.getZoom());
    } else {
       console.log("마커를 삭제합니다.");
@@ -116,7 +116,7 @@ function toggleFlMarkers() {
          polygons[k].setMap(null);
       }
       polygons = []; // 배열 초기화
-      isFloodingMarkersVisible = true;
+      isFloodingMarkersVisible = false;
    }
 }
 
