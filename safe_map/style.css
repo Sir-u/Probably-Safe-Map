@@ -412,6 +412,10 @@
         width: 100%;
     }
 
+    #reload {
+        display: none;
+    }
+
 }
 
 /* 큰 화면: 992px이상*/

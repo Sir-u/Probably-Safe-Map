@@ -6,6 +6,8 @@ var infoWindows = [];
 var currentInfoWindow = null;
 var listItems = [];
 
+var incidentList = document.getElementById('incidentList');
+
 // cors 에러 오류 때문에 url 앞에 https://cors-anywhere.herokuapp.com/ 추가
 // https://cors-anywhere.herokuapp.com/corsdemo 에서 request temporary access to the demo server
 
@@ -43,7 +45,7 @@ fetch('https://cors-anywhere.herokuapp.com/http://www.utic.go.kr:8080/guide/imsO
                 type: 2, //Popup의 type 설정, Tmapv2.InfoWindowOptions.TYPE_FLAT = 2
                 map: map, //Popup이 표시될 맵 객체
                 visible: false,
-                align: 18, // Tmapv2.InfoWindowOptions.ALIGN_CENTERBOTTOM = 18
+                align: 18, // Tmapv2.InfoWindowOptions.ALIGN_CENTERBOTTOM = 18  
                 offset: new Tmapv2.Point(0, 20)    // 20만큼 위쪽에 띄우기
             });
 
@@ -110,7 +112,6 @@ function removeRAIMarkers() {
     for (var i = 0; i < markersRAI.length; i++) {
         markersRAI[i].setVisible(false);
     }
-    // markerCluster.destroy();	//클러스터 삭제
 }
 
 
@@ -138,7 +139,6 @@ function showAreaRAIMarkers(x1, y1, x2, y2) {              //x경도 y위도인 
         y2 = tmp;
     }
 
-    console.log(x1, y1, x2, y2);
 
     for (var i = 0; i < markersRAI.length; i++) {
         // markers의 각 마커마다 lat lng값을 가져온다
@@ -146,16 +146,8 @@ function showAreaRAIMarkers(x1, y1, x2, y2) {              //x경도 y위도인 
         var lat = position.lat();
         var lng = position.lng();
 
-        if (i == 1) {
-            console.log(lat, lng);
-        }
-
         if ((x1 < lng) && (lng < x2) && (y1 < lat) && (lat < y2)) {      //해당 마커가 범위안에 있다면
             markersRAI[i].setVisible(true);        //마커를 맵에 표시
-            // new Tmapv2.Marker({                //마커생성
-            //     position: new Tmapv2.LatLng(lat, lng),
-            //     map: map,
-            // });
             incidentList.appendChild(listItems[i]);        //모달에 추가
             count += 1; //건수 카운트
         }
