@@ -215,10 +215,7 @@ function searchPOI(searchKeyword, isStart) {
 				});
 				//innerHtml
 				//list-group-item 클래스에 data-lat, data-lon 추가
-				innerHtml += "<li class='place-items' data-num='" + k 
-											+ "' data-lat='" + lat + "' data-lon='" + lon + "' data-name='" 
-											+ name + "'><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_g_m_" 
-											+ k + ".png' style='vertical-align:middle;'/><span> " + name + "</span></li>";
+				innerHtml += "<li class='place-items' data-num='" + k + "' data-lat='" + lat + "' data-lon='" + lon + "' data-name='" + name + "'><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_g_m_" + k + ".png' style='vertical-align:middle;'/><span> " + name + "</span></li>";
 
 				markerArr1.push(marker);
 				positionBounds.extend(markerPosition);	// LatLngBounds의 객체 확장
@@ -248,9 +245,7 @@ function searchPOI(searchKeyword, isStart) {
 
 				//그냥 검색일 때
 				if (isStart == 0) { //searchPOI의 두번째값에 넣음.
-
 					createPlaceMarker(lat, lon, dataNum); //marker_p 생성
-					console.log(dataNum);
 
 					$("#searchKeyword").val(name);
 					showAreaRAIMarkers(lon - 0.05, lat - 0.05, lon + 0.05, lat + 0.05);   //해당 위치에서 대략 10km 반경내 위치 돌발정보 표시
@@ -259,16 +254,16 @@ function searchPOI(searchKeyword, isStart) {
 				}
 				//출발지인 경우, 1
 				else if (isStart == 1) {
-					createStartMarker(lat, lon); //marker_s
-					setStartLocation(lat, lon);
+					createStartMarker(lat, lon); //marker_s 생성
+					setStartLocation(lat, lon); //출발위치에 저장
 					//검색란에 선택한 위치 세팅
 					$("#searchKeyword_start").val(name);
 
 				}
-				//도착지인 경우
+				//도착지인 경우, 2
 				else {
-					createDestMarker(lat, lon);
-					setDestLocation(lat, lon);
+					createDestMarker(lat, lon); //marker_s 생성
+					setDestLocation(lat, lon); //도착위치에 저장
 					//검색란에 선택한 위치 세팅
 					$("#searchKeyword_dest").val(name);
 				}
@@ -285,7 +280,6 @@ function searchPOI(searchKeyword, isStart) {
 }
 
 //장소, 길찾기 버튼 클릭했을때 나타나는 출발지 검색&도착지 검색&경로표시 버튼들의 클릭리스너 설정
-
 function click_listeners() {
 
 	//장소 검색 버튼 눌렀을 때

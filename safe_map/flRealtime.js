@@ -2,7 +2,6 @@ var item = [];
 var polyVisible = false; // 폴리곤 표시 여부를 추적하는 변수
 var markerPolygons = {}; // 개별 폴리곤 객체를 관리하는 객체
 var siteNames = []; // 변경된 변수 이름
-var sttusNm = [];
 
 function setPolygon(){
     for (var i = 0; i < item.length; i++) {
@@ -10,7 +9,6 @@ function setPolygon(){
         if (item[i]['sttus'] >= 50 && item[i]['sttusNm'] != "이상") {
             siteNames.push(item[i]['siteName']); // 변경된 변수 이름
         }
-        sttusNm.push(item[i]['sttusNm']);
     }
 }
 
@@ -27,10 +25,9 @@ async function getPolygon() {
         .catch((error) => {
             console.log(error);
         });
-
 }
 
-function createPolygon(name, paths, fillColor) {
+function createPolygon(paths, fillColor) {
     return new Tmapv2.Polygon({
         paths: paths,
         fillColor: fillColor,
@@ -40,7 +37,7 @@ function createPolygon(name, paths, fillColor) {
 
 function addPolygon(name, paths, fillColor) {
     if (!(name in markerPolygons)) {
-        markerPolygons[name] = createPolygon(name, paths, fillColor);
+        markerPolygons[name] = createPolygon(paths, fillColor);
         console.log(markerPolygons);
     }
 }

@@ -103,14 +103,11 @@ function floodPolygon() {
 }
 
 function toggleFlMarkers() {
-   // 마커 표시 여부에 따라 마커 표시/삭제 실행
+   // 폴리곤 표시 여부에 따라 폴리곤 표시/삭제 실행
    if (!isFloodingMarkersVisible) {
-      console.log("마커를 표시합니다.");
       weatherResponse();
       isFloodingMarkersVisible = true;
-      console.log(map.getZoom());
    } else {
-      console.log("마커를 삭제합니다.");
       // 모든 폴리곤 제거
       for (var k = 0; k < polygons.length; k++) {
          polygons[k].setMap(null);
