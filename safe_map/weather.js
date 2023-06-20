@@ -1757,7 +1757,7 @@ var latitudeX;
 var longitudeY;
 
 
-function findClosestGrid(latitude, longitude, callback) {
+function findClosestGrid(latitude, longitude) {
    // 입력한 위도와 경도와의 거리를 계산하는 함수를 정의합니다.
    function distance(lat1, lon1, lat2, lon2) {
       return Math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2);
@@ -1816,16 +1816,13 @@ if (navigator.geolocation) {
 }
 
 function makeWeatherAPIRequest() {
-
    var formattedToday;
    var currentTime;
-
 
    var today = new Date();
    var year = today.getFullYear();
    var month = today.getMonth() + 1;
    var day = today.getDate();
-   //day = day - 1;
 
    // 월과 일이 한 자리 수인 경우 앞에 0을 추가하여 두 자리로 만듭니다.
    month = month < 10 ? '0' + month : month;
@@ -1833,9 +1830,6 @@ function makeWeatherAPIRequest() {
 
    var formattedDate = year + month + day;
    formattedToday = formattedDate;
-
-
-
 
    var today = new Date();
    var minutes = today.getMinutes();
@@ -1862,8 +1856,6 @@ function makeWeatherAPIRequest() {
    queryParams += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(currentTime); /**/
    queryParams += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(gridX); /**/
    queryParams += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(gridY); /**/
-
-   console.log(gridX, gridY);
 
    xhr.open('GET', url + queryParams);
    xhr.onreadystatechange = function () {

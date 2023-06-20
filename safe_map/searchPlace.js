@@ -12,29 +12,30 @@ var marker_p;
 ////장소 검색 토글버튼 설정.
 function removeSearchSection_POINT() {
 	// 검색 토글버튼 올라왔을때 검색창이 사라지도록
-	$('#searchSection_POINT').hide();
-	$('#result_div').hide();
-	if (marker_p != null) {
-		marker_p.setVisible(false);
+	$('#searchSection_POINT').hide(); //장소검색창 숨기기
+	$('#result_div').hide(); //검색결과창 숨기기
+	if (marker_p != null) { //시작마커 숨기기
+		marker_p.setVisible(false); //검색 단어 삭제
 	}
 	resetSearch("searchKeyword");
 }
 
 function showSearchSection_POINT() {
-	// 검색 토글버튼 눌렀을때 검색창이 보이도록
-	$('#searchSection_POINT').show();
-	$('#result_div').show();
+	//검색 토글버튼 눌러져있을 때,이거 누르면 검색창 생겨남
+	$('#searchSection_POINT').show(); //장소검색창 생성
+	$('#result_div').show(); //검색결과창 생성
 }
 
+//toggle 버튼 구현 함수
 function toggleFindPoint() {
-	var button = document.querySelector('#findPlaceBtn');
+	var button = document.querySelector('#findPlaceBtn'); //장소검색버튼 불러오기
 	button.classList.toggle("changeColor_btn"); //버튼 색상을 지정해줌. 색상 설정은 css에서
-	var isPressed = button.getAttribute('aria-pressed') === 'true'; //aria-pressed속성을 설정해주고 true로 처음 설정
+	var isPressed = button.getAttribute('aria-pressed') === 'true'; //버튼 눌린상탠지, 즉 true인지 확인
 
-	if (isPressed) {
+	if (isPressed) { //눌려있는 상태
 		button.setAttribute('aria-pressed', 'false');
 		removeSearchSection_POINT(); // 검색버튼 눌렀을 때 검색창 없애기
-	} else {
+	} else { //안눌려있는 상태
 		button.setAttribute('aria-pressed', 'true');
 		showSearchSection_POINT(); // 검색버튼 눌렀을 때 검색창 띄우기
 	}
@@ -61,23 +62,24 @@ function showSearchRoute() {
 
 }
 
-//장소검색에서 경로검색으로
+//'이 장소로 길찾기' 버튼
 function placeToRoute(lat, lon, name) {
 	// 길찾기 토글버튼 눌러져있을때 --> 그냥 show하면 됨.
-	$("#btn_place_to_route").click(function () {
-		removeSearchSection_POINT();
-		toggleFindPoint();
-		showSearchRoute();
-		toggleFindRoute();
-
+	$("#btn_place_to_route").click(function () { //버튼 눌렀을 때
 		//경로검색창 띄우기
+		removeSearchSection_POINT(); //검색창 없애기
+		toggleFindPoint(); //경로 버튼 눌러서 끄기
+		showSearchRoute(); //경로 검색창 띄우기
+		toggleFindRoute(); //결과창이 장소검색이랑 중복돼어서, 한번 더 띄우기
+
+		//위도 경도 가져오기
 		showSearchRoute();
-		createStartMarker(lat, lon);
-		setStartLocation(lat, lon);
+		createStartMarker(lat, lon); //위치 가지고와서 시작점에 마커 찍기
+		setStartLocation(lat, lon); //시작위치라고 등록
 		//keyword 띄우기
-		var searchKeyword = $('#searchKeyword_start').val(name);
-		searchPOI(searchKeyword, 1); //0일 때 검색
-		console.log(searchKeyword);
+		var searchKeyword = $('#searchKeyword_start').val(name); //검색아아이 keyword표시
+		searchPOI(searchKeyword, 1); //1: 시작지점의 장소 검색
+		//console.log(searchKeyword);
 	});
 }
 
@@ -161,23 +163,23 @@ function searchPOI(searchKeyword, isStart) {
 	// POI 통합 검색 API 요청
 
 	var headers = {};
-	headers["appKey"] = "3KpXgMcaMY4s4BLd0y68867oI2fUOuos4t9kNemn";
+	headers["appKey"] = "3KpXgMcaMY4s4BLd0y68867oI2fUOuos4t9kNemn"; // app key
 
-	$.ajax({
+	$.ajax({ //ajaxfh api에 요청하기
 		method: "GET",
 		headers: headers,
 		url: "https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
 		async: false,
 		data: {
 			"searchKeyword": searchKeyword,
-			"resCoordType": "EPSG3857",
-			"reqCoordType": "WGS84GEO",
+			"resCoordType": "EPSG3857", //epsg3857로 응답받기
+			"reqCoordType": "WGS84GEO", //위도경도로 요청
 			"count": 10
 		},
 
 		//응답 받아오기
-		success: function (response) {
-			var resultpoisData = response.searchPoiInfo.pois.poi;
+		success: function (response) { //응답을 successfully received
+			var resultpoisData = response.searchPoiInfo.pois.poi; //response에서 위치값 빼오기
 
 			// 기존 마커, 팝업 제거
 			if (markerArr1.length > 0) {
@@ -213,7 +215,10 @@ function searchPOI(searchKeyword, isStart) {
 				});
 				//innerHtml
 				//list-group-item 클래스에 data-lat, data-lon 추가
-				innerHtml += "<li class='place-items' data-num='" + k + "' data-lat='" + lat + "' data-lon='" + lon + "' data-name='" + name + "'><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_g_m_" + k + ".png' style='vertical-align:middle;'/><span> " + name + "</span></li>";
+				innerHtml += "<li class='place-items' data-num='" + k 
+											+ "' data-lat='" + lat + "' data-lon='" + lon + "' data-name='" 
+											+ name + "'><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_g_m_" 
+											+ k + ".png' style='vertical-align:middle;'/><span> " + name + "</span></li>";
 
 				markerArr1.push(marker);
 				positionBounds.extend(markerPosition);	// LatLngBounds의 객체 확장
@@ -235,9 +240,6 @@ function searchPOI(searchKeyword, isStart) {
 				var name = $(this).data("name");
 				var dataNum = $(this).data("num");
 
-				// 예시로 경고창에 장소 정보 출력 (연습용)
-				//alert("선택한 장소: " + name + "\n위도: " + lat + "\n경도: " + lon);
-
 				// 클릭한 위치를 지도의 중심으로 설정
 				map.setCenter(new Tmapv2.LatLng(lat, lon));
 				// 지도 확대 레벨을 높임 (19가 최대인 듯)
@@ -245,22 +247,19 @@ function searchPOI(searchKeyword, isStart) {
 
 
 				//그냥 검색일 때
-				if (isStart == 0) {
+				if (isStart == 0) { //searchPOI의 두번째값에 넣음.
 
-					createPlaceMarker(lat, lon, dataNum);
+					createPlaceMarker(lat, lon, dataNum); //marker_p 생성
 					console.log(dataNum);
 
 					$("#searchKeyword").val(name);
 					showAreaRAIMarkers(lon - 0.05, lat - 0.05, lon + 0.05, lat + 0.05);   //해당 위치에서 대략 10km 반경내 위치 돌발정보 표시
 
-					placeToRoute(lat, lon, name);
+					placeToRoute(lat, lon, name); //장소검색에서 '이 위치로 검색'눌렀을 때 함수 동작
 				}
-				//출발지인 경우
+				//출발지인 경우, 1
 				else if (isStart == 1) {
-
-					console.log("1");
-
-					createStartMarker(lat, lon);
+					createStartMarker(lat, lon); //marker_s
 					setStartLocation(lat, lon);
 					//검색란에 선택한 위치 세팅
 					$("#searchKeyword_start").val(name);
@@ -527,6 +526,6 @@ function resettingMap1() {
 		}
 	}
 
-	drawInfoArr2 = [];                                                            
+	drawInfoArr2 = [];
 	resultdrawArr1 = [];
 }

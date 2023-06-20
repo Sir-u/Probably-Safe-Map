@@ -52,7 +52,7 @@ async function weatherResponse() {
          var pty = response.response.body.items.item[0].obsrValue; //pty값 : 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4), 빗방울(5), 빗방울/눈날림(6), 눈날림(7)
          var rn1 = response.response.body.items.item[2].obsrValue; //1시간 당 강우량 => 35이상일떄 침수 피해 위험
 
-         pty = 4; rn1 = 40; // 40mm 강우량의 소나기가 1시간 이상 온다고 가정
+         //pty = 4; rn1 = 40; // 40mm 강우량의 소나기가 1시간 이상 온다고 가정
 
          if (pty == 1 || pty == 2 || pty == 4 && rn1 >= 35) {
             floodPolygon();
