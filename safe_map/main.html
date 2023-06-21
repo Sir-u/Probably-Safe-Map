@@ -280,7 +280,11 @@
     <script src="weather.js"></script>
     <script src="flAlltimeInfo.js"></script>
     <script src="flRealtime.js"></script>
-    <script>getPolygon();</script> <!-- 침수 폴리곤을 미리 불러옴 -->
+    <script>
+      getPolygon(); // 침수 폴리곤을 미리 불러옴 
+      drawMap(); // 지도 불러오기
+      click_listeners(); 
+    </script>
 
     <!-- 새로고침 -->
     <script>

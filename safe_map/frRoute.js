@@ -151,26 +151,24 @@ function resettingMap() {
 }
 
 function drawRoute() {
+    //그리기 전 map 초기화
     resettingMap();
 
-    fetch(myData)
+    fetch(myData) 
         .then((res) => res.json())
         .then((resJson) => {
             const contents = resJson.data;
 
-            //console.log(contents);
-
-            // 센터 좌표 리스트
+            // 결빙상습구역 좌표 리스트
             var centers = resJson.data;
 
-
-            for (var i = 0; i < 5; i++) {//for문을 통하여 배열 안에 있는 값을 마커 생성
+            for (var i = 0; i < centers.length; i++) {//for문을 통하여 배열 안에 있는 값을 마커 생성
                 var lat = centers[i]["기점_위도(WGS84(4326))"];
                 var lng = centers[i]["기점_경도(WGS84(4326))"];
                 var endLat = centers[i]["종점_위도(WGS84(4326))"];
                 var endLng = centers[i]["종점_경도(WGS84(4326))"];
 
-                //console.log(lat,lng,endLat,endLng);
+                //경로탐색 함수에 전달 후 경로 표시
                 routeTmap_fr(lng, lat, endLng, endLat);
             }
         });
@@ -181,16 +179,13 @@ let isRouteVisible = false; // 표시 여부를 나타내는 변수
 function toggleRoute() {
     // 마커 표시 여부에 따라 마커 표시/삭제 실행
     if (!isRouteVisible) {
-        console.log("루트를 표시합니다.");
         drawRoute();
         isRouteVisible = true;
     } else {
-        console.log("루트를 삭제합니다.");
         resettingMap();
         isRouteVisible = false;
     }
 }
-
 
 // DOM이 완전히 로드된 후에 요소에 접근할 수 있도록 대기합니다.
 document.addEventListener("DOMContentLoaded", function () { //domcontentloaded안하면 안됨..

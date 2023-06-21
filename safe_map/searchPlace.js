@@ -1,7 +1,4 @@
 
-drawMap();
-click_listeners();
-
 var map, marker;
 var markerArr1 = [];
 
